@@ -8,36 +8,36 @@ namespace Data.Repository.SystemManage
 {
     public class RoleRepository : RepositoryBase<RoleEntity>, IRoleRepository
     {
-        public void DeleteForm(string keyValue)
+        readonly IRoleAuthorizeRepository roleAuthorizeRepository;
+        public RoleRepository(DbContext dbContext, IRoleAuthorizeRepository roleAuthorizeRepository) : base(dbContext)
         {
-            using (var db = new RepositoryBase.RepositoryBase().BeginTrans())
-            {
-                db.Delete<RoleEntity>(t => t.F_Id == keyValue);
-                db.Delete<RoleAuthorizeEntity>(t => t.F_ObjectId == keyValue);
-                db.Commit();
-            }
-        }
-        public void SubmitForm(RoleEntity roleEntity, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue)
-        {
-            using (var db = new RepositoryBase.RepositoryBase().BeginTrans())
-            {
-                if (!string.IsNullOrEmpty(keyValue))
-                {
-                    db.Update(roleEntity);
-                }
-                else
-                {
-                    roleEntity.F_Category = 1;
-                    db.Insert(roleEntity);
-                }
-                db.Delete<RoleAuthorizeEntity>(t => t.F_ObjectId == roleEntity.F_Id);
-                db.Insert(roleAuthorizeEntitys);
-                db.Commit();
-            }
+            this.roleAuthorizeRepository = roleAuthorizeRepository;
         }
 
-        public RoleRepository(DbContext dbContext) : base(dbContext)
-        {   
+        public void DeleteForm(string keyValue)
+        {
+            using var transaction = DbContext.Database.BeginTransaction();
+            DbContext.Remove(new RoleEntity { F_Id = keyValue });
+            DbContext.Remove(new RoleAuthorizeEntity { F_ObjectId = keyValue });
+            transaction.Commit();
         }
+
+        public void SubmitForm(RoleEntity roleEntity, List<RoleAuthorizeEntity> roleAuthorizeEntities, string keyValue)
+        {
+            using var transaction = DbContext.Database.BeginTransaction();
+            if (!string.IsNullOrEmpty(keyValue))
+            {
+                Update(roleEntity);
+            }
+            else
+            {
+                roleEntity.F_Category = 1;
+                Insert(roleEntity);
+            }
+            roleAuthorizeRepository.Delete(new RoleAuthorizeEntity { F_ObjectId = roleEntity.F_Id });
+            roleAuthorizeRepository.Insert(roleAuthorizeEntities);
+            transaction.Commit();
+        }
+
     }
 }

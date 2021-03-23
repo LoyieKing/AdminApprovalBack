@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using Common.Query;
 using Data.Entity.SystemManage;
 using Data.RepositoryBase;
 

@@ -11,6 +11,8 @@ namespace Common
     /// </summary>
     public static class Utils
     {
+        private static Random random = new Random();
+
         #region Stopwatch计时器
         /// <summary>
         /// 计时器开始
@@ -71,14 +73,12 @@ namespace Common
         /// <returns></returns>
         public static string CreateNo()
         {
-            Random random = new();
             string strRandom = random.Next(1000, 10000).ToString(); //生成编号 
             string code = DateTime.Now.ToString("yyyyMMddHHmmss") + strRandom;//形如
             return code;
         }
         #endregion
 
-        #region 生成0-9随机数
         /// <summary>
         /// 生成0-9随机数
         /// </summary>
@@ -87,18 +87,30 @@ namespace Common
         public static string RndNum(int codeNum)
         {
             StringBuilder sb = new(codeNum);
-            Random rand = new();
-            for (int i = 1; i < codeNum + 1; i++)
+            for (int i = 0; i < codeNum; i++)
             {
-                int t = rand.Next(9);
+                int t = random.Next(10);
                 sb.AppendFormat("{0}", t);
             }
             return sb.ToString();
-
         }
-        #endregion
 
-        #region 删除最后一个字符之后的字符
+        public static string RndEnNum(int len)
+        {
+            StringBuilder stringBuilder = new(len);
+            for (int i = 0; i < len; i++)
+            {
+                int charType = random.Next(3); //0:number 1:lowercase char 2:uppercase char
+                switch (charType)
+                {
+                    case 0: stringBuilder.Append(random.Next(10)); break;
+                    case 1: stringBuilder.Append((char)random.Next('a', 'z' + 1)); break;
+                    case 2: stringBuilder.Append((char)random.Next('A', 'Z' + 1)); break;
+                }
+            }
+            return stringBuilder.ToString();
+        }
+
         /// <summary>
         /// 删除最后结尾的一个逗号
         /// </summary>
@@ -126,6 +138,5 @@ namespace Common
             str = str.Substring(0, str.Length - Length);
             return str;
         }
-        #endregion
     }
 }

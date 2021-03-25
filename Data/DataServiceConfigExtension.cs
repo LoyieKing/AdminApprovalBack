@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Data
 {
-    public static class ServiceConfigExtension
+    public static class DataServiceConfigExtension
     {
         public static IServiceCollection AddData(
             this IServiceCollection services,

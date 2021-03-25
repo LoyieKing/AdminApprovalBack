@@ -25,6 +25,7 @@ namespace Data.Entity.SystemManage
         public DateTime? F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
         
+        
         public ItemsEntity Item { get; set; }
     }
 }

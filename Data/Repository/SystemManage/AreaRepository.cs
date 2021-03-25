@@ -6,7 +6,7 @@ using Data.RepositoryBase;
 
 namespace Data.Repository.SystemManage
 {
-    public class AreaRepository : RepositoryBase<AreaEntity>, IAreaRepository
+    internal class AreaRepository : RepositoryBase<AreaEntity>, IAreaRepository
     {
         public AreaRepository(DbContext dbContext) : base(dbContext)
         {

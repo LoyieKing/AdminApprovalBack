@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Data;
+using Service;
+using Middleware;
 
 namespace AdminApprovalBack
 {
@@ -24,6 +27,11 @@ namespace AdminApprovalBack
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddData(options =>
+            {
+                options.EnableDetailedErrors(true);
+            });
+            services.AddServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +53,8 @@ namespace AdminApprovalBack
 
             app.UseRouting();
 
+            app.Use(LoginMiddleware.LoginHandler);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -53,6 +63,10 @@ namespace AdminApprovalBack
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            
+            
+            
         }
     }
 }

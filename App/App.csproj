@@ -25,6 +25,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\Data\Data.csproj" />
+      <ProjectReference Include="..\Middleware\Middleware.csproj" />
       <ProjectReference Include="..\Service\Service.csproj" />
     </ItemGroup>
 

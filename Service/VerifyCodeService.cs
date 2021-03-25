@@ -29,7 +29,7 @@ namespace AdminApprovalBack.Services
         readonly SecurityCodeHelper securityCodeHelper = new SecurityCodeHelper();
         readonly UtcDateTimeProvider timeProvider = new UtcDateTimeProvider();
         const string secret = "GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk";
-        readonly byte[] secretBytes = Encoding.ASCII.GetBytes("GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk");
+        readonly byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
         readonly JwtEncoder jwtEncoder;
         readonly JwtDecoder jwtDecoder;
 

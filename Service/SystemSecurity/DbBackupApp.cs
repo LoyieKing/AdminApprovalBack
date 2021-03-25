@@ -54,11 +54,13 @@ namespace AdminApprovalBack.Services.SystemSecurity
             dbBackupRepository.ExecuteDbBackup(dbBackupEntity);
         }
 
-        class QueryJson
-        {
-            public string? Codition { get; set; }
-            public string? Keyword { get; set; }
+    }
 
-        }
+    class QueryJson
+    {
+        public string? Codition { get; set; }
+        public string? Keyword { get; set; }
+        public string? TimeType { get; set; }
+
     }
 }

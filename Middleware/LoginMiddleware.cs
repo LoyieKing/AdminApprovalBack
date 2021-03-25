@@ -1,6 +1,9 @@
-﻿using JWT;
+﻿using Data.Entity.SystemManage;
+using JWT;
+using JWT.Algorithms;
 using JWT.Serializers;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +14,9 @@ namespace Middleware
 {
     public static class LoginMiddleware
     {
+        private static readonly string secret = "wAngy1lei0Nradu2a4!clkSLKasdlzkc";
+        private static readonly byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
+        private static readonly JwtEncoder jwtEncoder = new JwtEncoder(new HMACSHA256Algorithm(), new JsonNetSerializer(), new JwtBase64UrlEncoder());
         private static readonly JwtDecoder jwtDecoder = new JwtDecoder(new JsonNetSerializer(), new JwtBase64UrlEncoder());
 
         public static async Task LoginHandler(HttpContext httpContext, Func<Task> next)
@@ -45,14 +51,43 @@ namespace Middleware
                 return null;
             }
         }
+
+        public static void SetUserInformation(this HttpContext httpContext, UserEntity userEntity)
+        {
+            var information = new UserInformation
+            {
+                Id = userEntity.F_Id,
+                Code = userEntity.F_Account,
+                Name = userEntity.F_RealName,
+                CompanyId = userEntity.F_OrganizeId,
+                DepartmentId = userEntity.F_DepartmentId,
+                RoleId = userEntity.F_RoleId,
+                LoginTime = DateTime.Now
+            };
+            httpContext.Response.Cookies.Append("Authorization", "Bear " + jwtEncoder.Encode(information, secretBytes));
+        }
     }
 
     public class UserInformation
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Level { get; set; }
+        /// <summary>
+        /// 用户ID
+        /// </summary>
+        public string Id { get; set; } = null!;
+        /// <summary>
+        /// 用户账户名
+        /// </summary>
+        public string Code { get; set; } = null!;
+        /// <summary>
+        /// 用户昵称
+        /// </summary>
+        public string Name { get; set; } = null!;
+        public string CompanyId { get; set; } = null!;
+        public string DepartmentId { get; set; } = null!;
+        public string RoleId { get; set; } = null!;
+        public DateTime LoginTime { get; set; }
 
-        public bool IsAdmin { get; set; }
+        [JsonIgnore]
+        public bool IsAdmin { get => Code == "admin"; }
     }
 }

@@ -1,30 +1,40 @@
-﻿using NFine.Code;
-using NFine.Domain.Entity.SystemSecurity;
-using NFine.Domain.IRepository.SystemSecurity;
-using NFine.Repository.SystemSecurity;
+﻿using Common.Query;
+using Data.Entity.SystemSecurity;
+using Data.IRepository.SystemSecurity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using Middleware;
+using Newtonsoft.Json;
+using Service;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdminApprovalBack.Services.SystemSecurity
 {
-    public class LogApp
+    public class LogApp : AppService
     {
-        private ILogRepository service = new LogRepository();
+        private ILogRepository service;
+
+        public LogApp(ILogRepository service, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        {
+            this.service = service;
+        }
 
         public List<LogEntity> GetList(Pagination pagination, string queryJson)
         {
-            var expression = ExtLinq.True<LogEntity>();
-            var queryParam = queryJson.ToJObject();
-            if (!queryParam["keyword"].IsEmpty())
+            var query = service.IQueryable();
+            var queryParam = JsonConvert.DeserializeObject<QueryJson>(queryJson);
+            if (!string.IsNullOrEmpty(queryParam.Keyword))
             {
-                string keyword = queryParam["keyword"].ToString();
-                expression = expression.And(t => t.F_Account.Contains(keyword));
+                string keyword = queryParam.Keyword;
+                query = query.Where(it => it.F_Account.Contains(keyword));
             }
-            if (!queryParam["timeType"].IsEmpty())
+            if (!string.IsNullOrEmpty(queryParam.TimeType))
             {
-                string timeType = queryParam["timeType"].ToString();
-                DateTime startTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate();
-                DateTime endTime = DateTime.Now.ToString("yyyy-MM-dd").ToDate().AddDays(1);
+                string timeType = queryParam.TimeType;
+                DateTime startTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                DateTime endTime = startTime.AddDays(1);
                 switch (timeType)
                 {
                     case "1":
@@ -41,9 +51,9 @@ namespace AdminApprovalBack.Services.SystemSecurity
                     default:
                         break;
                 }
-                expression = expression.And(t => t.F_Date >= startTime && t.F_Date <= endTime);
+                query = query.Where(it => it.F_Date >= startTime && it.F_Date <= endTime);
             }
-            return service.FindList(expression, pagination);
+            return query.PaginationBy(pagination).ToList();
         }
         public void RemoveLog(string keepTime)
         {
@@ -60,31 +70,26 @@ namespace AdminApprovalBack.Services.SystemSecurity
             {
                 operateTime = DateTime.Now.AddMonths(-3);
             }
-            var expression = ExtLinq.True<LogEntity>();
-            expression = expression.And(t => t.F_Date <= operateTime);
-            service.Delete(expression);
+            service.Delete(it => it.F_Date <= operateTime);
         }
         public void WriteDbLog(bool result, string resultLog)
         {
+            var userinfo = httpContextAccessor.HttpContext.GetUserInformation();
             LogEntity logEntity = new LogEntity();
-            logEntity.F_Id = Common.GuId();
             logEntity.F_Date = DateTime.Now;
-            logEntity.F_Account = OperatorProvider.Provider.GetCurrent().UserCode;
-            logEntity.F_NickName = OperatorProvider.Provider.GetCurrent().UserName;
-            logEntity.F_IPAddress = Net.Ip;
-            logEntity.F_IPAddressName = Net.GetLocation(logEntity.F_IPAddress);
+            logEntity.F_Account = userinfo?.Code ?? "";
+            logEntity.F_NickName = userinfo?.Name ?? "";
+            logEntity.F_IPAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             logEntity.F_Result = result;
             logEntity.F_Description = resultLog;
-            logEntity.Create();
+            CreateEntity(logEntity);
             service.Insert(logEntity);
         }
         public void WriteDbLog(LogEntity logEntity)
         {
-            logEntity.F_Id = Common.GuId();
             logEntity.F_Date = DateTime.Now;
-            logEntity.F_IPAddress = "117.81.192.182";
-            logEntity.F_IPAddressName = Net.GetLocation(logEntity.F_IPAddress);
-            logEntity.Create();
+            logEntity.F_IPAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            CreateEntity(logEntity);
             service.Insert(logEntity);
         }
     }

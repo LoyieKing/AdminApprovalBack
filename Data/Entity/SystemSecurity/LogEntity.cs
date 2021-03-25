@@ -12,7 +12,6 @@ namespace Data.Entity.SystemSecurity
         public string F_NickName { get; set; }
         public string F_Type { get; set; }
         public string F_IPAddress { get; set; }
-        public string F_IPAddressName { get; set; }
         public string F_ModuleId { get; set; }
         public string F_ModuleName { get; set; }
         public bool? F_Result { get; set; }

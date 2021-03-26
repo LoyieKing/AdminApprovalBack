@@ -1,10 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <RootNamespace>AdminApprovalBack</RootNamespace>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Controllers\SystemManage\Views\**" />
+      <Compile Remove="Controllers\SystemSecurity\Views\**" />
+      <Content Remove="Controllers\SystemManage\Views\**" />
+      <Content Remove="Controllers\SystemSecurity\Views\**" />
+      <EmbeddedResource Remove="Controllers\SystemManage\Views\**" />
+      <EmbeddedResource Remove="Controllers\SystemSecurity\Views\**" />
+      <None Remove="Controllers\SystemManage\Views\**" />
+      <None Remove="Controllers\SystemSecurity\Views\**" />
+    </ItemGroup>
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />

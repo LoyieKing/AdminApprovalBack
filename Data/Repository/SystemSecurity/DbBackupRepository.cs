@@ -18,7 +18,7 @@ namespace Data.Repository.SystemSecurity
             this.hostingEnvironment = hostingEnvironment;
         }
 
-        public void DeleteForm(string keyValue)
+        public void Delete(string keyValue)
         {
             using var trans = DbContext.Database.BeginTransaction();
             var dbBackupEntity = FindEntity(keyValue);

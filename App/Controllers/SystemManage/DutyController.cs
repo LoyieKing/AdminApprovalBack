@@ -18,30 +18,28 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
 
         [HttpGet]
-        public IActionResult GetGridJson(string keyword)
+        public IActionResult Index(string keyword = "")
         {
             var data = dutyApp.GetList(keyword);
             return Success(data);
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = dutyApp.GetForm(keyValue);
+            var data = dutyApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult SubmitForm(RoleEntity roleEntity, string keyValue)
+        public IActionResult Submit(RoleEntity roleEntity, string keyValue)
         {
-            dutyApp.SubmitForm(roleEntity, keyValue);
+            dutyApp.Submit(roleEntity, keyValue);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            dutyApp.DeleteForm(keyValue);
+            dutyApp.Delete(keyValue);
             return Success();
         }
     }

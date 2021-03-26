@@ -15,7 +15,7 @@ namespace Data.Repository.SystemManage
         {
             this.userLogOnRepository = userLogOnRepository;
         }
-        public void DeleteForm(string keyValue)
+        public void Delete(string keyValue)
         {
             using var transaction = DbContext.Database.BeginTransaction();
             DbContext.Remove(new UserEntity { F_Id = keyValue });
@@ -23,7 +23,7 @@ namespace Data.Repository.SystemManage
             transaction.Commit();
         }
 
-        public void SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
+        public void Submit(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
         {
             using var trans = DbContext.Database.BeginTransaction();
 

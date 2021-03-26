@@ -28,15 +28,15 @@ namespace Service
         {
             return repo.IQueryable();
         }
-        public virtual TEnitity GetForm(string keyValue)
+        public virtual TEnitity FineOne(string keyValue)
         {
             return repo.FindEntity(keyValue);
         }
-        public virtual void DeleteForm(string keyValue)
+        public virtual void Delete(string keyValue)
         {
             repo.Delete(t => t.F_Id == keyValue);
         }
-        public virtual void SubmitForm(TEnitity entity, string keyValue)
+        public virtual void Submit(TEnitity entity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {

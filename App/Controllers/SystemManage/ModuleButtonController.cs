@@ -20,36 +20,31 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
 
         [HttpGet]
-        public IActionResult GetTreeJson(string moduleId)
+        public IActionResult Index(string moduleId)
         {
             var data = moduleButtonApp.GetList(moduleId);
             return Success(data.ToTreeModel());
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = moduleButtonApp.GetForm(keyValue);
+            var data = moduleButtonApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult SubmitForm(ModuleButtonEntity moduleButtonEntity, string keyValue)
+        public IActionResult Submit(ModuleButtonEntity moduleButtonEntity, string keyValue)
         {
-            moduleButtonApp.SubmitForm(moduleButtonEntity, keyValue);
+            moduleButtonApp.Submit(moduleButtonEntity, keyValue);
             return Success();
         }
         [HttpPost]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            moduleButtonApp.DeleteForm(keyValue);
+            moduleButtonApp.Delete(keyValue);
             return Success();
         }
         [HttpGet]
-        public IActionResult CloneButton()
-        {
-            return View();
-        }
-        [HttpGet]
-        public IActionResult GetCloneButtonTreeJson()
+        public IActionResult All()
         {
             var moduledata = moduleApp.GetList().ToList();
             var buttondata = moduleButtonApp.GetList().ToList();
@@ -72,9 +67,9 @@ namespace AdminApprovalBack.Controllers.SystemManage
             return Success(treeList);
         }
         [HttpPost]
-        public IActionResult SubmitCloneButton(string moduleId, string Ids)
+        public IActionResult CloneButton(string moduleId, string[] ids)
         {
-            moduleButtonApp.SubmitCloneButton(moduleId, Ids);
+            moduleButtonApp.SubmitCloneButton(moduleId, ids);
             return Success();
         }
     }

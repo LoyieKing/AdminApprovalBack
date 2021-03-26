@@ -22,13 +22,13 @@ namespace AdminApprovalBack.Services.SystemManage
             }
             return query.OrderBy(t => t.F_SortCode);
         }
-        public override void DeleteForm(string keyValue)
+        public override void Delete(string keyValue)
         {
             if (repo.IQueryable().Any(t => t.F_ParentId.Equals(keyValue)))
             {
                 throw new Exception("删除失败！操作的对象包含了下级数据。");
             }
-            base.DeleteForm(keyValue);
+            base.Delete(keyValue);
         }
         public void SubmitCloneButton(string moduleId, params string[] ids)
         {

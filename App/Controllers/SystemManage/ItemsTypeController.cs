@@ -18,27 +18,27 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
 
         [HttpGet]
-        public IActionResult GetTreeJson()
+        public IActionResult Index()
         {
             var data = itemsApp.GetList();
             return Json(data.ToTreeModel());
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = itemsApp.GetForm(keyValue);
+            var data = itemsApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult SubmitForm(ItemsEntity itemsEntity, string keyValue)
+        public IActionResult Submit(ItemsEntity itemsEntity, string keyValue)
         {
-            itemsApp.SubmitForm(itemsEntity, keyValue);
+            itemsApp.Submit(itemsEntity, keyValue);
             return Success();
         }
         [HttpPost]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            itemsApp.DeleteForm(keyValue);
+            itemsApp.Delete(keyValue);
             return Success();
         }
     }

@@ -18,13 +18,13 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
 
         [HttpGet]
-        public IActionResult GetGridJson(string itemId, string keyword)
+        public IActionResult Index(string itemId, string keyword)
         {
             var data = itemsDetailApp.GetList(itemId, keyword);
             return Success(data);
         }
         [HttpGet]
-        public IActionResult GetSelectJson(string enCode)
+        public IActionResult Map(string enCode)
         {
             var data = itemsDetailApp
                 .GetItemList(enCode)
@@ -32,22 +32,22 @@ namespace AdminApprovalBack.Controllers.SystemManage
             return Success(data);
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = itemsDetailApp.GetForm(keyValue);
+            var data = itemsDetailApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult SubmitForm(ItemsDetailEntity itemsDetailEntity, string keyValue)
+        public IActionResult Submit(ItemsDetailEntity itemsDetailEntity, string keyValue)
         {
-            itemsDetailApp.SubmitForm(itemsDetailEntity, keyValue);
+            itemsDetailApp.Submit(itemsDetailEntity, keyValue);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            itemsDetailApp.DeleteForm(keyValue);
+            itemsDetailApp.Delete(keyValue);
             return Success();
         }
     }

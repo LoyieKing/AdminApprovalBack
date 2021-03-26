@@ -19,12 +19,12 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
 
         [HttpGet]
-        public IActionResult GetTreeSelectJson()
+        public IActionResult Index()
         {
-            return Success(areaApp.GetList().Select(it => new { id = it.F_Id, text = it.F_FullName, parentId = it.F_ParentId }));
+            return Success(areaApp.GetList().ToTreeModel());
         }
         [HttpGet]
-        public IActionResult GetTreeGridJson(string keyword)
+        public IActionResult Index(string keyword)
         {
             var data = areaApp.GetList();
             if (!string.IsNullOrEmpty(keyword))
@@ -34,24 +34,22 @@ namespace AdminApprovalBack.Controllers.SystemManage
             return Success(data.ToTreeModel());
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = areaApp.GetForm(keyValue);
+            var data = areaApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult SubmitForm(AreaEntity areaEntity, string keyValue)
+        public IActionResult Submit(AreaEntity areaEntity, string keyValue)
         {
-            areaApp.SubmitForm(areaEntity, keyValue);
+            areaApp.Submit(areaEntity, keyValue);
             return Success();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [HandlerAuthorize]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            areaApp.DeleteForm(keyValue);
+            areaApp.Delete(keyValue);
             return Success();
         }
     }

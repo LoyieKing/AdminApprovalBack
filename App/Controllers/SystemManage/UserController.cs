@@ -21,7 +21,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             this.userLogOnApp = userLogOnApp;
         }
         [HttpGet]
-        public IActionResult GetGridJson(Pagination pagination, string keyword)
+        public IActionResult Index(Pagination pagination, string keyword)
         {
             var data = new
             {
@@ -33,28 +33,28 @@ namespace AdminApprovalBack.Controllers.SystemManage
             return Success(data);
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = userApp.GetForm(keyValue);
+            var data = userApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
+        public IActionResult Submit(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
         {
-            userApp.SubmitForm(userEntity, userLogOnEntity, keyValue);
+            userApp.Submit(userEntity, userLogOnEntity, keyValue);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            userApp.DeleteForm(keyValue);
+            userApp.Delete(keyValue);
             return Success();
         }
 
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult SubmitRevisePassword(string userPassword, string keyValue)
+        public IActionResult RevisePassword(string userPassword, string keyValue)
         {
             userLogOnApp.RevisePassword(userPassword, keyValue);
             return Success();
@@ -66,7 +66,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             UserEntity userEntity = new UserEntity();
             userEntity.F_Id = keyValue;
             userEntity.F_EnabledMark = false;
-            userApp.UpdateForm(userEntity);
+            userApp.Update(userEntity);
             return Success();
         }
         [HttpPost]
@@ -76,7 +76,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             UserEntity userEntity = new UserEntity();
             userEntity.F_Id = keyValue;
             userEntity.F_EnabledMark = true;
-            userApp.UpdateForm(userEntity);
+            userApp.Update(userEntity);
             return Success();
         }
     }

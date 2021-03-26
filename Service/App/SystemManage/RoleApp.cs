@@ -31,7 +31,7 @@ namespace AdminApprovalBack.Services.SystemManage
             return query.OrderBy(t => t.F_SortCode);
         }
 
-        public void SubmitForm(RoleEntity roleEntity, string[] permissionIds, string keyValue)
+        public void Submit(RoleEntity roleEntity, string[] permissionIds, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -61,7 +61,7 @@ namespace AdminApprovalBack.Services.SystemManage
                 }
                 roleAuthorizeEntitys.Add(roleAuthorizeEntity);
             }
-            repo.SubmitForm(roleEntity, roleAuthorizeEntitys, keyValue);
+            repo.Submit(roleEntity, roleAuthorizeEntitys, keyValue);
         }
     }
 }

@@ -13,13 +13,13 @@ namespace AdminApprovalBack.Services.SystemManage
         public ItemsApp(IItemsRepository itemsRepository, IHttpContextAccessor httpContextAccessor)
             : base(itemsRepository, httpContextAccessor) { }
 
-        public override void DeleteForm(string keyValue)
+        public override void Delete(string keyValue)
         {
             if (repo.IQueryable().Any(t => t.F_ParentId.Equals(keyValue)))
             {
                 throw new Exception("删除失败！操作的对象包含了下级数据。");
             }
-            base.DeleteForm(keyValue);
+            base.Delete(keyValue);
         }
     }
 }

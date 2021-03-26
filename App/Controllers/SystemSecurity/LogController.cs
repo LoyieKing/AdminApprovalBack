@@ -16,7 +16,7 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
         }
 
         [HttpGet]
-        public IActionResult GetGridJson(Pagination pagination, string queryJson)
+        public IActionResult Index(Pagination pagination, string queryJson)
         {
             var data = new
             {
@@ -29,7 +29,7 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult SubmitRemoveLog(string keepTime)
+        public IActionResult RemoveLog(string keepTime)
         {
             logApp.RemoveLog(keepTime);
             return Success();

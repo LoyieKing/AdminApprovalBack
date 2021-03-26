@@ -36,7 +36,7 @@ namespace AdminApprovalBack.Services.SystemSecurity
             return query.OrderByDescending(t => t.F_BackupTime).ToList();
         }
 
-        public void SubmitForm(DbBackupEntity dbBackupEntity)
+        public void Submit(DbBackupEntity dbBackupEntity)
         {
             dbBackupEntity.F_Id = Common.Utils.GuId();
             dbBackupEntity.F_EnabledMark = true;

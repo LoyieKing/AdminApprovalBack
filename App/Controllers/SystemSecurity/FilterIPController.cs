@@ -16,28 +16,28 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
         }
 
         [HttpGet]
-        public IActionResult GetGridJson(string keyword)
+        public IActionResult Index(string keyword)
         {
             var data = filterIPApp.GetList(keyword);
             return Success(data);
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = filterIPApp.GetForm(keyValue);
+            var data = filterIPApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult SubmitForm(FilterIPEntity filterIPEntity, string keyValue)
+        public IActionResult Submit(FilterIPEntity filterIPEntity, string keyValue)
         {
-            filterIPApp.SubmitForm(filterIPEntity, keyValue);
+            filterIPApp.Submit(filterIPEntity, keyValue);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            filterIPApp.DeleteForm(keyValue);
+            filterIPApp.Delete(keyValue);
             return Success();
         }
     }

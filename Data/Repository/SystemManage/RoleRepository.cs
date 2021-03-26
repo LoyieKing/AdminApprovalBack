@@ -14,7 +14,7 @@ namespace Data.Repository.SystemManage
             this.roleAuthorizeRepository = roleAuthorizeRepository;
         }
 
-        public void DeleteForm(string keyValue)
+        public void Delete(string keyValue)
         {
             using var transaction = DbContext.Database.BeginTransaction();
             DbContext.Remove(new RoleEntity { F_Id = keyValue });
@@ -22,7 +22,7 @@ namespace Data.Repository.SystemManage
             transaction.Commit();
         }
 
-        public void SubmitForm(RoleEntity roleEntity, List<RoleAuthorizeEntity> roleAuthorizeEntities, string keyValue)
+        public void Submit(RoleEntity roleEntity, List<RoleAuthorizeEntity> roleAuthorizeEntities, string keyValue)
         {
             using var transaction = DbContext.Database.BeginTransaction();
             if (!string.IsNullOrEmpty(keyValue))

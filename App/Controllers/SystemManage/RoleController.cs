@@ -24,28 +24,28 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
 
         [HttpGet]
-        public IActionResult GetGridJson(string keyword)
+        public IActionResult Index(string keyword)
         {
             var data = roleApp.GetList(keyword);
             return Success(data);
         }
         [HttpGet]
-        public IActionResult GetFormJson(string keyValue)
+        public IActionResult One(string keyValue)
         {
-            var data = roleApp.GetForm(keyValue);
+            var data = roleApp.FineOne(keyValue);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult SubmitForm(RoleEntity roleEntity, string permissionIds, string keyValue)
+        public IActionResult Submit(RoleEntity roleEntity, string[] permissionIds, string keyValue)
         {
-            roleApp.SubmitForm(roleEntity, permissionIds.Split(','), keyValue);
+            roleApp.Submit(roleEntity, permissionIds, keyValue);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            roleApp.DeleteForm(keyValue);
+            roleApp.Delete(keyValue);
             return Success();
         }
     }

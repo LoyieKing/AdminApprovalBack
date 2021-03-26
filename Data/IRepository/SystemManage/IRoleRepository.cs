@@ -7,7 +7,7 @@ namespace Data.IRepository.SystemManage
 {
     public interface IRoleRepository : IRepositoryBase<RoleEntity>
     {
-        void DeleteForm(string keyValue);
-        void SubmitForm(RoleEntity roleEntity, List<RoleAuthorizeEntity> roleAuthorizeEntities, string keyValue);
+        void Delete(string keyValue);
+        void Submit(RoleEntity roleEntity, List<RoleAuthorizeEntity> roleAuthorizeEntities, string keyValue);
     }
 }

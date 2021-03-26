@@ -14,7 +14,7 @@ namespace AdminApprovalBack.Services.SystemManage
         public UserLogOnApp(IUserLogOnRepository userLogOnRepository, IHttpContextAccessor httpContextAccessor)
             : base(userLogOnRepository, httpContextAccessor) { }
 
-        public void UpdateForm(UserLogOnEntity userLogOnEntity)
+        public void Update(UserLogOnEntity userLogOnEntity)
         {
             repo.Update(userLogOnEntity);
         }

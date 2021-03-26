@@ -21,31 +21,31 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
         }
 
         [HttpGet]
-        public IActionResult GetGridJson(string queryJson)
+        public IActionResult Index(string queryJson)
         {
             var data = dbBackupApp.GetList(queryJson);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult SubmitForm(DbBackupEntity dbBackupEntity)
+        public IActionResult Submit(DbBackupEntity dbBackupEntity)
         {
             dbBackupEntity.F_FilePath = "~/Resource/DbBackup/" + dbBackupEntity.F_FileName + ".bak";
             dbBackupEntity.F_FileName = dbBackupEntity.F_FileName + ".bak";
-            dbBackupApp.SubmitForm(dbBackupEntity);
+            dbBackupApp.Submit(dbBackupEntity);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult DeleteForm(string keyValue)
+        public IActionResult Delete(string keyValue)
         {
-            dbBackupApp.DeleteForm(keyValue);
+            dbBackupApp.Delete(keyValue);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
         public IActionResult DownloadBackup(string keyValue)
         {
-            var data = dbBackupApp.GetForm(keyValue);
+            var data = dbBackupApp.FineOne(keyValue);
             var filepath = Path.Combine(webHostEnvironment.ContentRootPath, data.F_FilePath);
             using var fs = new FileStream(filepath, FileMode.Open);
             return File(fs, "application/octet-stream", data.F_FileName);

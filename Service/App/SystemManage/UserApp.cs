@@ -31,7 +31,7 @@ namespace AdminApprovalBack.Services.SystemManage
             return query.PaginationBy(pagination);
         }
 
-        public void SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
+        public void Submit(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -41,9 +41,9 @@ namespace AdminApprovalBack.Services.SystemManage
             {
                 CreateEntity(userEntity);
             }
-            repo.SubmitForm(userEntity, userLogOnEntity, keyValue);
+            repo.Submit(userEntity, userLogOnEntity, keyValue);
         }
-        public void UpdateForm(UserEntity userEntity)
+        public void Update(UserEntity userEntity)
         {
             repo.Update(userEntity);
         }
@@ -59,7 +59,7 @@ namespace AdminApprovalBack.Services.SystemManage
                 throw new Exception("账户被系统锁定,请联系管理员");
             }
 
-            UserLogOnEntity userLogOnEntity = userLogOnApp.GetForm(userEntity.F_Id);
+            UserLogOnEntity userLogOnEntity = userLogOnApp.FineOne(userEntity.F_Id);
             string dbPassword = Md5.Hash(DesEncrypt.Encrypt(password, userLogOnEntity.F_UserSecretkey).ToLower(), 32).ToLower();
             if (dbPassword == userLogOnEntity.F_UserPassword)
             {
@@ -69,7 +69,7 @@ namespace AdminApprovalBack.Services.SystemManage
                     userLogOnEntity.F_PreviousVisitTime = userLogOnEntity.F_LastVisitTime ?? DateTime.UnixEpoch;
                 }
                 userLogOnEntity.F_LastVisitTime = lastVisitTime;
-                userLogOnApp.UpdateForm(userLogOnEntity);
+                userLogOnApp.Update(userLogOnEntity);
                 return userEntity;
             }
             else

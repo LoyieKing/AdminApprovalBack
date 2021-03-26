@@ -10,7 +10,7 @@ namespace Data.RepositoryBase
     public interface IRepositoryBase<TEntity> where TEntity : class,new()
     {
         int Insert(TEntity entity);
-        int Insert(List<TEntity> entities);
+        int Insert(IEnumerable<TEntity> entities);
         int Update(TEntity entity);
         int Delete(TEntity entity);
         int Delete(Expression<Func<TEntity, bool>> predicate);

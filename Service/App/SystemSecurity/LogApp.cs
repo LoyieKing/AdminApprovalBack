@@ -12,18 +12,15 @@ using System.Linq;
 
 namespace AdminApprovalBack.Services.SystemSecurity
 {
-    public class LogApp : AppService
+    public class LogApp : AppService<ILogRepository,LogEntity>
     {
-        private ILogRepository service;
 
-        public LogApp(ILogRepository service, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        {
-            this.service = service;
-        }
+        public LogApp(ILogRepository service, IHttpContextAccessor httpContextAccessor)
+            : base(service, httpContextAccessor) { }
 
         public List<LogEntity> GetList(Pagination pagination, string queryJson)
         {
-            var query = service.IQueryable();
+            var query = GetList();
             var queryParam = JsonConvert.DeserializeObject<QueryJson>(queryJson);
             if (!string.IsNullOrEmpty(queryParam.Keyword))
             {
@@ -70,7 +67,7 @@ namespace AdminApprovalBack.Services.SystemSecurity
             {
                 operateTime = DateTime.Now.AddMonths(-3);
             }
-            service.Delete(it => it.F_Date <= operateTime);
+            repo.Delete(it => it.F_Date <= operateTime);
         }
         public void WriteDbLog(bool result, string resultLog)
         {
@@ -83,14 +80,14 @@ namespace AdminApprovalBack.Services.SystemSecurity
             logEntity.F_Result = result;
             logEntity.F_Description = resultLog;
             CreateEntity(logEntity);
-            service.Insert(logEntity);
+            repo.Insert(logEntity);
         }
         public void WriteDbLog(LogEntity logEntity)
         {
             logEntity.F_Date = DateTime.Now;
             logEntity.F_IPAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             CreateEntity(logEntity);
-            service.Insert(logEntity);
+            repo.Insert(logEntity);
         }
     }
 }

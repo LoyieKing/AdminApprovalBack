@@ -2,8 +2,10 @@
 using Data.Entity.SystemSecurity;
 using Data.IRepository.SystemSecurity;
 using Data.RepositoryBase;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
 
 namespace Data.Repository.SystemSecurity
 {
@@ -31,10 +33,21 @@ namespace Data.Repository.SystemSecurity
 
         public void ExecuteDbBackup(DbBackupEntity dbBackupEntity)
         {
+            dbBackupEntity.F_BackupTime ??= DateTime.Now;
+            var filename = dbBackupEntity.F_FileName;
+            if (filename == null)
+            {
+                filename = dbBackupEntity.F_BackupTime!.ToString();
+            }
+            if (string.IsNullOrEmpty(Path.GetExtension(filename)))
+            {
+                filename = Path.ChangeExtension(filename, ".bak");
+            }
+            dbBackupEntity.F_FileName = filename!;
+            dbBackupEntity.F_FilePath ??= "~/Resource/DbBackup/" + dbBackupEntity.F_FileName;
             DbContext.Database.ExecuteSqlRaw(
-                $"backup database {dbBackupEntity.F_DbName} to disk ='{dbBackupEntity.F_FilePath}'");
+                $"backup database {dbBackupEntity.F_DbName} to disk ='{Path.Combine(hostingEnvironment.ContentRootPath, dbBackupEntity.F_FilePath)}'");
             dbBackupEntity.F_FileSize = FileHelper.ToFileSize(FileHelper.GetFileSize(dbBackupEntity.F_FilePath));
-            dbBackupEntity.F_FilePath = "/Resource/DbBackup/" + dbBackupEntity.F_FileName;
             Insert(dbBackupEntity);
         }
     }

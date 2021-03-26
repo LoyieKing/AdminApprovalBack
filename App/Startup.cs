@@ -61,7 +61,11 @@ namespace AdminApprovalBack
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "api/{controller}/{action}/");
+
+                endpoints.MapAreaControllerRoute("SystemManage", "SystemManage", "api/sysmanage/{controller}/{action}/");
+                endpoints.MapAreaControllerRoute("SystemSecurity", "SystemSecurity", "api/syssec/{controller}/{action}/");
+
             });
 
             

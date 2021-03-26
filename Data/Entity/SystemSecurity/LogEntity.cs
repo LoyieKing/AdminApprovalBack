@@ -4,9 +4,8 @@ using Data.Infrastructure;
 
 namespace Data.Entity.SystemSecurity
 {
-    public class LogEntity : IEntity<LogEntity>, ICreationAudited
+    public class LogEntity : IEntity<LogEntity>
     {
-        public string F_Id { get; set; }
         public DateTime? F_Date { get; set; }
         public string F_Account { get; set; }
         public string F_NickName { get; set; }
@@ -16,7 +15,5 @@ namespace Data.Entity.SystemSecurity
         public string F_ModuleName { get; set; }
         public bool? F_Result { get; set; }
         public string F_Description { get; set; }
-        public DateTime? F_CreatorTime { get; set; }
-        public string F_CreatorUserId { get; set; }
     }
 }

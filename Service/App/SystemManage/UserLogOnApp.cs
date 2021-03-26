@@ -8,22 +8,15 @@ using Service;
 
 namespace AdminApprovalBack.Services.SystemManage
 {
-    public class UserLogOnApp : AppService
+    public class UserLogOnApp : AppService<IUserLogOnRepository, UserLogOnEntity>
     {
-        private readonly IUserLogOnRepository service;
 
-        public UserLogOnApp(IUserLogOnRepository userLogOnRepository, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
-        {
-            this.service = userLogOnRepository;
-        }
+        public UserLogOnApp(IUserLogOnRepository userLogOnRepository, IHttpContextAccessor httpContextAccessor)
+            : base(userLogOnRepository, httpContextAccessor) { }
 
-        public UserLogOnEntity GetForm(string keyValue)
-        {
-            return service.FindEntity(keyValue);
-        }
         public void UpdateForm(UserLogOnEntity userLogOnEntity)
         {
-            service.Update(userLogOnEntity);
+            repo.Update(userLogOnEntity);
         }
         public void RevisePassword(string userPassword, string keyValue)
         {
@@ -31,7 +24,7 @@ namespace AdminApprovalBack.Services.SystemManage
             userLogOnEntity.F_Id = keyValue;
             userLogOnEntity.F_UserSecretkey = Md5.Hash(Common.Utils.CreateNo(), 16).ToLower();
             userLogOnEntity.F_UserPassword = Md5.Hash(DesEncrypt.Encrypt(Md5.Hash(userPassword, 32).ToLower(), userLogOnEntity.F_UserSecretkey).ToLower(), 32).ToLower();
-            service.Update(userLogOnEntity);
+            repo.Update(userLogOnEntity);
         }
     }
 }

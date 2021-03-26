@@ -2,7 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Text;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Common.IO
 {

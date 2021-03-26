@@ -1,11 +1,11 @@
 ﻿
+using Data.Infrastructure;
 using System;
 
 namespace Data.Entity.SystemManage
 {
-    public class UserLogOnEntity
+    public class UserLogOnEntity : IEntity<UserLogOnEntity>
     {
-        public string F_Id { get; set; }
         public string F_UserId { get; set; }
         public string F_UserPassword { get; set; }
         public string F_UserSecretkey { get; set; }
@@ -18,7 +18,6 @@ namespace Data.Entity.SystemManage
         public DateTime? F_LastVisitTime { get; set; }
         public DateTime? F_ChangePasswordDate { get; set; }
         public bool? F_MultiUserLogin { get; set; }
-        public int? F_LogOnCount { get; set; }
         public bool? F_UserOnLine { get; set; }
         public string F_Question { get; set; }
         public string F_AnswerQuestion { get; set; }

@@ -10,35 +10,27 @@ using System.Linq;
 
 namespace AdminApprovalBack.Services.SystemManage
 {
-    public class UserApp : AppService
+    public class UserApp : AppService<IUserRepository,UserEntity>
     {
-        private readonly IUserRepository userRepository;
         private readonly UserLogOnApp userLogOnApp;
 
-        public UserApp(IUserRepository userRepository, UserLogOnApp userLogOnApp, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+        public UserApp(IUserRepository userRepository, UserLogOnApp userLogOnApp, IHttpContextAccessor httpContextAccessor) 
+            : base(userRepository, httpContextAccessor)
         {
-            this.userRepository = userRepository;
             this.userLogOnApp = userLogOnApp;
         }
 
-        public List<UserEntity> GetList(Pagination pagination, string keyword)
+        public IQueryable<UserEntity> GetList(Pagination pagination, string keyword)
         {
-            var query = userRepository.IQueryable();
+            var query = GetList();
             query = query.Where(it => it.F_Account != "admin");
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(it => it.F_Account.Contains(keyword) || it.F_RealName.Contains(keyword) || it.F_MobilePhone.Contains(keyword));
             }
-            return query.PaginationBy(pagination).ToList();
+            return query.PaginationBy(pagination);
         }
-        public UserEntity GetForm(string keyValue)
-        {
-            return userRepository.FindEntity(keyValue);
-        }
-        public void DeleteForm(string keyValue)
-        {
-            userRepository.DeleteForm(keyValue);
-        }
+
         public void SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
@@ -49,15 +41,15 @@ namespace AdminApprovalBack.Services.SystemManage
             {
                 CreateEntity(userEntity);
             }
-            userRepository.SubmitForm(userEntity, userLogOnEntity, keyValue);
+            repo.SubmitForm(userEntity, userLogOnEntity, keyValue);
         }
         public void UpdateForm(UserEntity userEntity)
         {
-            userRepository.Update(userEntity);
+            repo.Update(userEntity);
         }
         public UserEntity CheckLogin(string username, string password)
         {
-            UserEntity userEntity = userRepository.FindEntity(t => t.F_Account == username);
+            UserEntity userEntity = repo.FindEntity(t => t.F_Account == username);
             if (userEntity == null)
             {
                 throw new Exception("账户不存在，请重新输入");
@@ -72,13 +64,11 @@ namespace AdminApprovalBack.Services.SystemManage
             if (dbPassword == userLogOnEntity.F_UserPassword)
             {
                 DateTime lastVisitTime = DateTime.Now;
-                int LogOnCount = (userLogOnEntity.F_LogOnCount ?? 0) + 1;
                 if (userLogOnEntity.F_LastVisitTime != null)
                 {
                     userLogOnEntity.F_PreviousVisitTime = userLogOnEntity.F_LastVisitTime ?? DateTime.UnixEpoch;
                 }
                 userLogOnEntity.F_LastVisitTime = lastVisitTime;
-                userLogOnEntity.F_LogOnCount = LogOnCount;
                 userLogOnApp.UpdateForm(userLogOnEntity);
                 return userEntity;
             }

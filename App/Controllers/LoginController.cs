@@ -74,15 +74,14 @@ namespace AdminApprovalBack.Controllers
                 }
 
                 UserEntity userEntity = userApp.CheckLogin(username, password);
-                if (userEntity != null)
-                {
-                    HttpContext.SetUserInformation(userEntity);
-                    logEntity.F_Account = userEntity.F_Account;
-                    logEntity.F_NickName = userEntity.F_RealName;
-                    logEntity.F_Result = true;
-                    logEntity.F_Description = "登录成功";
-                    logApp.WriteDbLog(logEntity);
-                }
+
+                HttpContext.SetUserInformation(userEntity);
+                logEntity.F_Account = userEntity.F_Account;
+                logEntity.F_NickName = userEntity.F_RealName;
+                logEntity.F_Result = true;
+                logEntity.F_Description = "登录成功";
+                logApp.WriteDbLog(logEntity);
+
                 return Json(new { success = true, message = "登录成功" });
             }
             catch (Exception ex)

@@ -7,6 +7,5 @@ namespace Data.IRepository.SystemManage
 {
     public interface IModuleButtonRepository : IRepositoryBase<ModuleButtonEntity>
     {
-        void SubmitCloneButton(List<ModuleButtonEntity> entities);
     }
 }

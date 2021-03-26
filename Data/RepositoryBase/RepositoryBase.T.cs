@@ -27,13 +27,12 @@ namespace Data.RepositoryBase
             return DbContext.SaveChanges();
         }
 
-        public int Insert(List<TEntity> entities)
+        public int Insert(IEnumerable<TEntity> entities)
         {
             foreach (var entity in entities)
             {
                 DbContext.Entry(entity).State = EntityState.Added;
             }
-
             return DbContext.SaveChanges();
         }
 

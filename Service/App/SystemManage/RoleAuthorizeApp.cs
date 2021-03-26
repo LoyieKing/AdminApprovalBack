@@ -1,6 +1,7 @@
 ﻿using Common.Cache;
 using Data.Entity.SystemManage;
 using Data.IRepository.SystemManage;
+using Data.Repository.SystemManage;
 using Microsoft.AspNetCore.Http;
 using Middleware;
 using Service;
@@ -10,9 +11,8 @@ using System.Linq;
 
 namespace AdminApprovalBack.Services.SystemManage
 {
-    public class RoleAuthorizeApp : AppService
+    public class RoleAuthorizeApp : AppService<IRoleAuthorizeRepository,RoleAuthorizeEntity>
     {
-        private readonly IRoleAuthorizeRepository roleAuthorizeRepository;
         private readonly ModuleApp moduleApp;
         private readonly ModuleButtonApp moduleButtonApp;
 
@@ -20,21 +20,20 @@ namespace AdminApprovalBack.Services.SystemManage
             ModuleApp moduleApp,
             ModuleButtonApp moduleButtonApp,
             IHttpContextAccessor httpContextAccessor
-            ) : base(httpContextAccessor)
+            ) : base(roleAuthorizeRepository,httpContextAccessor)
         {
-            this.roleAuthorizeRepository = roleAuthorizeRepository;
             this.moduleApp = moduleApp;
             this.moduleButtonApp = moduleButtonApp;
         }
 
-        public List<RoleAuthorizeEntity> GetList(string ObjectId)
+        public IQueryable<RoleAuthorizeEntity> GetList(string roleId)
         {
-            return roleAuthorizeRepository.IQueryable(t => t.F_ObjectId == ObjectId).ToList();
+            return GetList().Where(it => it.F_ObjectId == roleId);
         }
-        public List<ModuleEntity> GetMenuList(string roleId)
+        public IQueryable<ModuleEntity> GetMenuList(string roleId)
         {
             var isadmin = httpContextAccessor.HttpContext.GetUserInformation()?.IsAdmin ?? false;
-            var data = new List<ModuleEntity>();
+            IQueryable<ModuleEntity> data;
             if (isadmin)
             {
                 data = moduleApp.GetList();
@@ -42,22 +41,15 @@ namespace AdminApprovalBack.Services.SystemManage
             else
             {
                 var moduledata = moduleApp.GetList();
-                var authorizedata = roleAuthorizeRepository.IQueryable(t => t.F_ObjectId == roleId && t.F_ItemType == 1).ToList();
-                foreach (var item in authorizedata)
-                {
-                    ModuleEntity moduleEntity = moduledata.Find(t => t.F_Id == item.F_ItemId);
-                    if (moduleEntity != null)
-                    {
-                        data.Add(moduleEntity);
-                    }
-                }
+                var authorizedata = GetList().Where(t => t.F_ObjectId == roleId && t.F_ItemType == 1);
+                data = moduledata.Where(it => authorizedata.Any(a => a.F_ItemId == it.F_Id));
             }
-            return data.OrderBy(t => t.F_SortCode).ToList();
+            return data.OrderBy(t => t.F_SortCode);
         }
         public List<ModuleButtonEntity> GetButtonList(string roleId)
         {
             var isadmin = httpContextAccessor.HttpContext.GetUserInformation()?.IsAdmin ?? false;
-            var data = new List<ModuleButtonEntity>();
+            IQueryable<ModuleButtonEntity> data;
             if (isadmin)
             {
                 data = moduleButtonApp.GetList();
@@ -65,15 +57,8 @@ namespace AdminApprovalBack.Services.SystemManage
             else
             {
                 var buttondata = moduleButtonApp.GetList();
-                var authorizedata = roleAuthorizeRepository.IQueryable(t => t.F_ObjectId == roleId && t.F_ItemType == 2).ToList();
-                foreach (var item in authorizedata)
-                {
-                    ModuleButtonEntity moduleButtonEntity = buttondata.Find(t => t.F_Id == item.F_ItemId);
-                    if (moduleButtonEntity != null)
-                    {
-                        data.Add(moduleButtonEntity);
-                    }
-                }
+                var authorizedata = GetList().Where(t => t.F_ObjectId == roleId && t.F_ItemType == 2);
+                data = buttondata.Where(it => authorizedata.Any(a => a.F_ItemId == it.F_Id));
             }
             return data.OrderBy(t => t.F_SortCode).ToList();
         }
@@ -83,29 +68,17 @@ namespace AdminApprovalBack.Services.SystemManage
             var cachedata = CacheFactory.Instance.GetCache<List<AuthorizeActionModel>>("authorizeurldata_" + roleId);
             if (cachedata == null)
             {
-                var moduledata = moduleApp.GetList();
-                var buttondata = moduleButtonApp.GetList();
-                var authorizedata = roleAuthorizeRepository.IQueryable(t => t.F_ObjectId == roleId).ToList();
-                foreach (var item in authorizedata)
-                {
-                    if (item.F_ItemType == 1)
-                    {
-                        ModuleEntity moduleEntity = moduledata.Find(t => t.F_Id == item.F_ItemId);
-                        authorizeurldata.Add(new AuthorizeActionModel { F_Id = moduleEntity.F_Id, F_UrlAddress = moduleEntity.F_UrlAddress });
-                    }
-                    else if (item.F_ItemType == 2)
-                    {
-                        ModuleButtonEntity moduleButtonEntity = buttondata.Find(t => t.F_Id == item.F_ItemId);
-                        authorizeurldata.Add(new AuthorizeActionModel { F_Id = moduleButtonEntity.F_ModuleId, F_UrlAddress = moduleButtonEntity.F_UrlAddress });
-                    }
-                }
+                var moduledata = GetMenuList(roleId);
+                var buttondata = GetButtonList(roleId);
+                authorizeurldata.AddRange(moduledata.Select(it => new AuthorizeActionModel { F_Id = it.F_Id, F_UrlAddress = it.F_UrlAddress }));
+                authorizeurldata.AddRange(buttondata.Select(it => new AuthorizeActionModel { F_Id = it.F_ModuleId, F_UrlAddress = it.F_UrlAddress }));
                 CacheFactory.Instance.WriteCache(authorizeurldata, "authorizeurldata_" + roleId, DateTime.Now.AddMinutes(5));
             }
             else
             {
                 authorizeurldata = cachedata;
             }
-            authorizeurldata = authorizeurldata.FindAll(t => t.F_Id.Equals(moduleId));
+            //authorizeurldata = authorizeurldata.FindAll(t => t.F_Id.Equals(moduleId));
             foreach (var item in authorizeurldata)
             {
                 if (!string.IsNullOrEmpty(item.F_UrlAddress))

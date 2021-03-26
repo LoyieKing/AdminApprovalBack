@@ -11,10 +11,6 @@ namespace Data.Repository.SystemManage
         public ModuleButtonRepository(DbContext dbContext) : base(dbContext)
         {
         }
-        public void SubmitCloneButton(List<ModuleButtonEntity> entities)
-        {
-            Insert(entities);
-        }
 
 
     }

@@ -2,46 +2,29 @@
 using Microsoft.VisualBasic.CompilerServices;
 
 namespace Data.Infrastructure
-{   
+{
     public abstract class IEntity<TEntity>
     {
-    //     public void Create()
-    //     {
-    //         var entity = this as ICreationAudited;
-    //         entity.F_Id = Common.Utils.GuId();
-    //         var LoginInfo = OperatorProvider.Provider.GetCurrent();
-    //         if (LoginInfo != null)
-    //         {
-    //             entity.F_CreatorUserId = LoginInfo.UserId;
-    //         }
-    //
-    //         entity.F_CreatorTime = DateTime.Now;
-    //     }
-    //
-    //     public void Modify(string keyValue)
-    //     {
-    //         var entity = this as IModificationAudited;
-    //         entity.F_Id = keyValue;
-    //         var LoginInfo = OperatorProvider.Provider.GetCurrent();
-    //         if (LoginInfo != null)
-    //         {
-    //             entity.F_LastModifyUserId = LoginInfo.UserId;
-    //         }
-    //
-    //         entity.F_LastModifyTime = DateTime.Now;
-    //     }
-    //
-    //     public void Remove()
-    //     {
-    //         var entity = this as IDeleteAudited;
-    //         var LoginInfo = OperatorProvider.Provider.GetCurrent();
-    //         if (LoginInfo != null)
-    //         {
-    //             entity.F_DeleteUserId = LoginInfo.UserId;
-    //         }
-    //
-    //         entity.F_DeleteTime = DateTime.Now;
-    //         entity.F_DeleteMark = true;
-    //     }
+        public string F_Id { get; set; }
+        public string F_CreatorUserId { get; set; }
+        public DateTime? F_CreatorTime { get; set; }
+
+        /// <summary>
+        /// 逻辑删除标记
+        /// </summary>
+        public bool? F_DeleteMark { get; set; }
+
+        /// <summary>
+        /// 删除实体的用户
+        /// </summary>
+        public string F_DeleteUserId { get; set; }
+
+        /// <summary>
+        /// 删除实体时间
+        /// </summary>
+        public DateTime? F_DeleteTime { get; set; }
+
+        public string F_LastModifyUserId { get; set; }
+        public DateTime? F_LastModifyTime { get; set; }
     }
 }

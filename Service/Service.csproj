@@ -7,12 +7,13 @@
   <ItemGroup>
     <PackageReference Include="Hei.Captcha" Version="0.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\Middleware\Middleware.csproj" />
   </ItemGroup>
 
 </Project>

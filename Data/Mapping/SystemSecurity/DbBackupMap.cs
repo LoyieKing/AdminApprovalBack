@@ -11,7 +11,7 @@ namespace Data.Mapping.SystemSecurity
         public void Configure(EntityTypeBuilder<DbBackupEntity> builder)
         {
             builder.ToTable("Sys_DbBackup");
-            builder.HasKey(t => t.F_Id);
+            builder.HasIndex(t => t.Id);
         }
     }
 }

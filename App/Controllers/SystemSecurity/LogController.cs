@@ -8,11 +8,11 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
     [Area("SystemSecurity")]
     public class LogController : ControllerBase
     {
-        private readonly LogApp logApp;
+        private readonly LogService logService;
 
-        public LogController(LogApp logApp)
+        public LogController(LogService logService)
         {
-            this.logApp = logApp;
+            this.logService = logService;
         }
 
         [HttpGet]
@@ -20,7 +20,7 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
         {
             var data = new
             {
-                rows = logApp.GetList(pagination, queryJson),
+                rows = logService.GetList(pagination, queryJson),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -31,7 +31,7 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
         [HandlerAuthorize]
         public IActionResult RemoveLog(string keepTime)
         {
-            logApp.RemoveLog(keepTime);
+            logService.RemoveLog(keepTime);
             return Success();
         }
     }

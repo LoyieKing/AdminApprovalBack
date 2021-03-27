@@ -10,7 +10,7 @@ namespace Data.Mapping.SystemSecurity
         public void Configure(EntityTypeBuilder<LogEntity> builder)
         {
             builder.ToTable("Sys_Log");
-            builder.HasKey(t => t.F_Id);
+            builder.HasIndex(t => t.Id);
         }
     }
 }

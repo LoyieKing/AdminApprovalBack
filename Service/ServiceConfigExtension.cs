@@ -1,11 +1,9 @@
 ﻿using AdminApprovalBack.Services;
 using AdminApprovalBack.Services.SystemManage;
+using AdminApprovalBack.Services.SystemSecurity;
+using Autofac;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service
 {
@@ -13,12 +11,20 @@ namespace Service
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddHttpContextAccessor();
             services.AddSingleton<VerifyCodeService>();
 
-            services.AddScoped<AreaApp>();
-
             return services;
+        }
+
+        public static ContainerBuilder RegisterServices(this ContainerBuilder builder)
+        {
+            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
+            builder.RegisterType<UserService>().InstancePerLifetimeScope();
+            builder.RegisterType<DbBackupService>().InstancePerLifetimeScope();
+            builder.RegisterType<LogService>().InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(RepoService<>)).InstancePerLifetimeScope();
+
+            return builder;
         }
     }
 }

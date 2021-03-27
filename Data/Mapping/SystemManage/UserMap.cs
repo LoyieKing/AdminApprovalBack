@@ -11,7 +11,7 @@ namespace Data.Mapping.SystemManage
         public void Configure(EntityTypeBuilder<UserEntity> builder)
         {
             builder.ToTable("Sys_User");
-            builder.HasKey(t => t.F_Id);
+            builder.HasIndex(t => t.Id);
         }
     }
 }

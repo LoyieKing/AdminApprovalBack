@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Data.Mapping.SystemManage
 {
-    class OrganizeMap : IEntityTypeConfiguration<OrganizeEntity>
+    public class UserOrganizeMap : IEntityTypeConfiguration<UserOrganizeEntity>
     {
-        public void Configure(EntityTypeBuilder<OrganizeEntity> builder)
+        public void Configure(EntityTypeBuilder<UserOrganizeEntity> builder)
         {
             builder.HasIndex(it => it.Id);
-            builder.HasOne(it => it.Category).WithMany(it => it.Organizes).HasForeignKey(it => it.CategoryId);
-            builder.HasOne(it => it.Parent).WithMany(it => it.SubOrganizes).HasForeignKey(it => it.ParentId);
+            builder.HasOne(it => it.User).WithMany(it => it.Organizes);
+            builder.HasOne(it => it.Organize).WithMany(it => it.Users);
         }
     }
 }

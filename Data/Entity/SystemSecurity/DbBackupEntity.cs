@@ -3,16 +3,14 @@ using Data.Infrastructure;
 
 namespace Data.Entity.SystemSecurity
 {
-    public class DbBackupEntity : IEntity<DbBackupEntity>
+    public class DbBackupEntity : IEntity
     {
-        public string F_BackupType { get; set; }
-        public string F_DbName { get; set; }
-        public string F_FileName { get; set; }
-        public string F_FileSize { get; set; }
-        public string F_FilePath { get; set; }
-        public DateTime? F_BackupTime { get; set; }
-        public int? F_SortCode { get; set; }
-        public bool? F_EnabledMark { get; set; }
-        public string F_Description { get; set; }
+        public string BackupType { get; set; } = null!;
+        public string DbName { get; set; } = null!;
+        public string FileName { get; set; } = null!;
+        public string FileSize { get; set; } = null!;
+        public string FilePath { get; set; } = null!;
+        public DateTime? BackupTime { get; set; }
+        public string Description { get; set; } = null!;
     }
 }

@@ -6,6 +6,7 @@ using Data.Entity.SystemSecurity;
 using Data.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Middleware;
+using Service.Login;
 using System;
 
 namespace AdminApprovalBack.Controllers
@@ -13,14 +14,14 @@ namespace AdminApprovalBack.Controllers
     public class LoginController : Controller
     {
         private readonly VerifyCodeService verifyCodeService;
-        private readonly LogApp logApp;
-        private readonly UserApp userApp;
+        private readonly LogService logger;
+        private readonly UserService userService;
 
-        public LoginController(VerifyCodeService verifyCodeService, LogApp logApp,UserApp userApp)
+        public LoginController(VerifyCodeService verifyCodeService, LogService logger,UserService userApp)
         {
             this.verifyCodeService = verifyCodeService;
-            this.logApp = logApp;
-            this.userApp = userApp;
+            this.logger = logger;
+            this.userService = userApp;
         }
 
         [HttpGet]
@@ -38,16 +39,7 @@ namespace AdminApprovalBack.Controllers
             {
                 return Json(new { success = true });
             }
-            var logEntity = new LogEntity
-            {
-                F_ModuleName = "系统登录",
-                F_Type = DbLogType.Exit.ToString(),
-                F_Account = userInfo.Code,
-                F_NickName = userInfo.Name,
-                F_Result = true,
-                F_Description = "安全退出系统",
-            };
-            logApp.WriteDbLog(logEntity);
+            logger.WriteDbLog(DbLogType.Exit.ToString(), true, "安全退出系统");
             HttpContext.Response.Cookies.Delete("Authorization");
             return RedirectToAction("Index", "Login");
         }
@@ -55,9 +47,6 @@ namespace AdminApprovalBack.Controllers
         [HttpPost]
         public IActionResult CheckLogin(string username, string password, string code)
         {
-            LogEntity logEntity = new LogEntity();
-            logEntity.F_ModuleName = "系统登录";
-            logEntity.F_Type = DbLogType.Login.ToString();
             try
             {
                 var vcodeSession = Request.Cookies["vcode-session"];
@@ -73,25 +62,18 @@ namespace AdminApprovalBack.Controllers
                     case VerifyCodeService.State.Invalid: return Json(new { success = false, message = "验证信息错误" });
                 }
 
-                UserEntity userEntity = userApp.CheckLogin(username, password);
+                UserEntity userEntity = userService.CheckPassword(username, password);
 
                 HttpContext.SetUserInformation(userEntity);
-                logEntity.F_Account = userEntity.F_Account;
-                logEntity.F_NickName = userEntity.F_RealName;
-                logEntity.F_Result = true;
-                logEntity.F_Description = "登录成功";
-                logApp.WriteDbLog(logEntity);
+                logger.WriteDbLog(DbLogType.Login.ToString(), true, "登录成功");
 
                 return Json(new { success = true, message = "登录成功" });
             }
             catch (Exception ex)
             {
                 var msg = "登录失败，" + ex.Message;
-                logEntity.F_Account = username;
-                logEntity.F_NickName = username;
-                logEntity.F_Result = false;
-                logEntity.F_Description = msg;
-                logApp.WriteDbLog(logEntity);
+                logger.WriteDbLog(DbLogType.Login.ToString(), false, msg);
+
                 return Json(new { success = false, message = msg });
             }
         }

@@ -3,6 +3,7 @@ using AdminApprovalBack.Services.SystemManage;
 using Common.Query;
 using Data.Entity.SystemManage;
 using Microsoft.AspNetCore.Mvc;
+using Service.Login;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,20 +13,19 @@ namespace AdminApprovalBack.Controllers.SystemManage
     [Area("SystemManage")]
     public class UserController : ControllerBase
     {
-        private readonly UserApp userApp;
-        private readonly UserLogOnApp userLogOnApp;
+        private readonly UserService userService;
 
-        public UserController(UserApp userApp, UserLogOnApp userLogOnApp)
+        public UserController(UserService userService)
         {
-            this.userApp = userApp;
-            this.userLogOnApp = userLogOnApp;
+            this.userService = userService;
         }
         [HttpGet]
+        [HandlerAuthorize]
         public IActionResult Index(Pagination pagination, string keyword)
         {
             var data = new
             {
-                rows = userApp.GetList(pagination, keyword),
+                rows = userService.GetList(pagination, keyword),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -33,50 +33,57 @@ namespace AdminApprovalBack.Controllers.SystemManage
             return Success(data);
         }
         [HttpGet]
-        public IActionResult One(string keyValue)
+        public IActionResult One(int id)
         {
-            var data = userApp.FineOne(keyValue);
+            var data = userService.FindOne(id);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult Submit(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
+        public IActionResult Update(UserEntity userEntity)
         {
-            userApp.Submit(userEntity, userLogOnEntity, keyValue);
+            var userInfo = HttpContext.GetUserInformation();
+            var admin = userInfo?.IsAdmin ?? false;
+
+            if (userEntity.Id != userEntity.Id && !admin)
+            {
+                return Error("权限不足！您只能修改自己的账户信息");
+            }
+            userEntity.Password = null!;
+            userService.Update(userEntity);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult Delete(string keyValue)
+        public IActionResult Delete(int id)
         {
-            userApp.Delete(keyValue);
+            userService.Delete(id);
             return Success();
         }
 
         [HttpPost]
-        [HandlerAuthorize]
-        public IActionResult RevisePassword(string userPassword, string keyValue)
+        public IActionResult RevisePassword(int id, string oldpwd, string newpwd)
         {
-            userLogOnApp.RevisePassword(userPassword, keyValue);
+            userService.RevisePassword(id, oldpwd, newpwd);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult DisabledAccount(string keyValue)
+        public IActionResult DisabledAccount(int keyValue)
         {
             UserEntity userEntity = new UserEntity();
-            userEntity.F_Id = keyValue;
-            userEntity.F_EnabledMark = false;
-            userApp.Update(userEntity);
+            userEntity.Id = keyValue;
+            userEntity.EnabledMark = false;
+            userService.Update(userEntity);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult EnabledAccount(string keyValue)
+        public IActionResult EnabledAccount(int keyValue)
         {
             UserEntity userEntity = new UserEntity();
-            userEntity.F_Id = keyValue;
-            userEntity.F_EnabledMark = true;
-            userApp.Update(userEntity);
+            userEntity.Id = keyValue;
+            userEntity.EnabledMark = true;
+            userService.Update(userEntity);
             return Success();
         }
     }

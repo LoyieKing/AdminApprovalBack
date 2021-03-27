@@ -9,6 +9,7 @@ namespace Common.Query
     {
         public static IQueryable<T> PaginationBy<T>(this IQueryable<T> queryable, Pagination pagination)
         {
+            if (pagination == null) return queryable;
             bool isAsc = pagination.sord.ToLower() == "asc";
             string[] order = pagination.sidx.Split(',');
             MethodCallExpression? resultExp = null;

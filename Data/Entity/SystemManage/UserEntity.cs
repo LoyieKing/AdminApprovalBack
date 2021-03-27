@@ -1,30 +1,30 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using Data.Infrastructure;
 
 namespace Data.Entity.SystemManage
 {
-    public class UserEntity : IEntity<UserEntity>
+    public class UserEntity : IEntity
     {
-        public string F_Account { get; set; }
-        public string F_RealName { get; set; }
-        public string F_NickName { get; set; }
-        public string F_HeadIcon { get; set; }
-        public bool? F_Gender { get; set; }
-        public DateTime? F_Birthday { get; set; }
-        public string F_MobilePhone { get; set; }
-        public string F_Email { get; set; }
-        public string F_WeChat { get; set; }
-        public string F_ManagerId { get; set; }
-        public int? F_SecurityLevel { get; set; }
-        public string F_Signature { get; set; }
-        public string F_OrganizeId { get; set; }
-        public string F_DepartmentId { get; set; }
-        public string F_RoleId { get; set; }
-        public string F_DutyId { get; set; }
-        public bool? F_IsAdministrator { get; set; }
-        public int? F_SortCode { get; set; }
-        public bool? F_EnabledMark { get; set; }
-        public string F_Description { get; set; }
+        public string UsernName { get; set; } = null!;
+        public string RealName { get; set; } = null!;
+        public string Avatar { get; set; } = null!;
+        public bool? Gender { get; set; }
+        public DateTime? Birthday { get; set; }
+
+        /// <summary>
+        /// 联系方式，推荐为json
+        /// </summary>
+        public string Contract { get; set; } = null!;
+
+        /// <summary>
+        /// 是否为管理员
+        /// </summary>
+        public bool? IsAdministrator { get; set; }
+        public bool? EnabledMark { get; set; }
+        public string Password { get; set; } = null!;
+
+        public List<UserOrganizeEntity> Organizes { get; set; } = null!;
     }
 }

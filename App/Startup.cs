@@ -12,28 +12,44 @@ using Data;
 using Service;
 using Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Features;
+using Autofac;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace AdminApprovalBack
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            // In ASP.NET Core 3.0 `env` will be an IWebHostEnvironment, not IHostingEnvironment.
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            this.Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
-
+        public IConfigurationRoot Configuration { get; private set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllers();
             services.AddData(options =>
             {
                 options.UseMySql("Server=mysql.loyieking.com;Database=graduation;Uid=root;Pwd=924558375;", new MySqlServerVersion(new Version(8, 0)));
                 options.EnableDetailedErrors(true);
             });
             services.AddServices();
+
+            //services.Replace(ServiceDescriptor.Transient<IControllerActivator, ServiceBasedControllerActivator>());
+        }
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegsiterRepo();
+            builder.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,12 +67,11 @@ namespace AdminApprovalBack
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
             app.Use(LoginMiddleware.LoginHandler);
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -8,7 +8,7 @@ namespace Data.Infrastructure
 {
     public interface ITreeEntity
     {
-        string F_Id { get; set; }
-        string F_ParentId { get; set; }
+        Guid Id { get; set; }
+        Guid ParentId { get; set; }
     }
 }

@@ -11,44 +11,42 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
     [Area("SystemSecurity")]
     public class DbBackupController : ControllerBase
     {
-        private readonly DbBackupApp dbBackupApp;
+        private readonly DbBackupService dbBackupService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public DbBackupController(DbBackupApp dbBackupApp, IWebHostEnvironment webHostEnvironment)
+        public DbBackupController(DbBackupService dbBackupApp, IWebHostEnvironment webHostEnvironment)
         {
-            this.dbBackupApp = dbBackupApp;
+            this.dbBackupService = dbBackupApp;
             this.webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
         public IActionResult Index(string queryJson)
         {
-            var data = dbBackupApp.GetList(queryJson);
+            var data = dbBackupService.GetList(queryJson);
             return Success(data);
         }
         [HttpPost]
-        public IActionResult Submit(DbBackupEntity dbBackupEntity)
+        public IActionResult Backup(string backupType, string? desc = null, string? filename = null)
         {
-            dbBackupEntity.F_FilePath = "~/Resource/DbBackup/" + dbBackupEntity.F_FileName + ".bak";
-            dbBackupEntity.F_FileName = dbBackupEntity.F_FileName + ".bak";
-            dbBackupApp.Submit(dbBackupEntity);
+            dbBackupService.ExecuteDbBackup("graduation", backupType, desc, filename);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult Delete(string keyValue)
+        public IActionResult Delete(int id)
         {
-            dbBackupApp.Delete(keyValue);
+            dbBackupService.Delete(id);
             return Success();
         }
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult DownloadBackup(string keyValue)
+        public IActionResult DownloadBackup(int id)
         {
-            var data = dbBackupApp.FineOne(keyValue);
-            var filepath = Path.Combine(webHostEnvironment.ContentRootPath, data.F_FilePath);
+            var data = dbBackupService.FindOne(id);
+            var filepath = Path.Combine(webHostEnvironment.ContentRootPath, data.FilePath);
             using var fs = new FileStream(filepath, FileMode.Open);
-            return File(fs, "application/octet-stream", data.F_FileName);
+            return File(fs, "application/octet-stream", data.FileName);
         }
     }
 }

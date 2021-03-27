@@ -19,11 +19,6 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            return Success(areaApp.GetList().ToTreeModel());
-        }
-        [HttpGet]
         public IActionResult Index(string keyword)
         {
             var data = areaApp.GetList();
@@ -37,6 +32,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         public IActionResult One(string keyValue)
         {
             var data = areaApp.FineOne(keyValue);
+            if (data == null) return Error("未找到此区域");
             return Success(data);
         }
         [HttpPost]

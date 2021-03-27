@@ -6,17 +6,11 @@ namespace Data
 {
     internal class AabDbContext : DbContext
     {
-        private readonly Action<DbContextOptionsBuilder> _optionAction;
 
-        public AabDbContext(Action<DbContextOptionsBuilder> options)
+        public AabDbContext(DbContextOptions<AabDbContext> options) : base(options)
         {
-            _optionAction = options;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            _optionAction?.Invoke(optionsBuilder);
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

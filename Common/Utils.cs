@@ -138,5 +138,13 @@ namespace Common
             str = str.Substring(0, str.Length - Length);
             return str;
         }
+
+        public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
+        {
+            foreach (var item in items)
+            {
+                action(item);
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Data;
 using Service;
 using Middleware;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminApprovalBack
 {
@@ -29,6 +30,7 @@ namespace AdminApprovalBack
             services.AddControllersWithViews();
             services.AddData(options =>
             {
+                options.UseMySql("Server=mysql.loyieking.com;Database=graduation;Uid=root;Pwd=924558375;", new MySqlServerVersion(new Version(8, 0)));
                 options.EnableDetailedErrors(true);
             });
             services.AddServices();
@@ -55,16 +57,14 @@ namespace AdminApprovalBack
 
             app.Use(LoginMiddleware.LoginHandler);
 
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "api/{controller}/{action}/");
+                    pattern: "api/{controller}/{action=index}/");
 
-                endpoints.MapAreaControllerRoute("SystemManage", "SystemManage", "api/sysmanage/{controller}/{action}/");
-                endpoints.MapAreaControllerRoute("SystemSecurity", "SystemSecurity", "api/syssec/{controller}/{action}/");
+                endpoints.MapAreaControllerRoute("SystemManage", "SystemManage", "api/sysmanage/{controller}/{action=index}/");
+                endpoints.MapAreaControllerRoute("SystemSecurity", "SystemSecurity", "api/syssec/{controller}/{action=index}/");
 
             });
 

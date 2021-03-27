@@ -21,12 +21,29 @@ namespace Middleware
 
         public static async Task LoginHandler(HttpContext httpContext, Func<Task> next)
         {
-            if (httpContext.Request.PathBase.StartsWithSegments(PathString.FromUriComponent("/api/login")))
+            if (httpContext.Request.Path.StartsWithSegments(PathString.FromUriComponent("/api/login")))
             {
                 await next();
                 return;
             }
-            httpContext.Items.Add("logininfo", httpContext.GetUserInformation());
+            var userinfo = httpContext.GetUserInformation();
+            if (userinfo == null)
+            {
+                httpContext.Items.Add("logininfo", userinfo);
+                await next();
+                return;
+                var resp = JsonConvert.SerializeObject(new { success = false, message = "请先登录" });
+                httpContext.Response.StatusCode = 400;
+                httpContext.Response.ContentType = "application/json";
+                await httpContext.Response.WriteAsync(resp, Encoding.UTF8);
+                return;
+            }
+            else
+            {
+                httpContext.Items.Add("logininfo", userinfo);
+                await next();
+                return;
+            }
         }
 
         public static UserInformation? GetUserInformation(this HttpContext context)

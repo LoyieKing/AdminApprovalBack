@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Data.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Entity.SystemManage
 {
@@ -26,5 +27,15 @@ namespace Data.Entity.SystemManage
         public OrganizeCategoryEntity Category { get; set; } = null!;
 
         public List<UserOrganizeEntity> Users { get; set; } = null!;
+    }
+
+    class OrganizeMap : EntityTypeConfiguration<OrganizeEntity>
+    {
+        public override void Configure(EntityTypeBuilder<OrganizeEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasOne(it => it.Category).WithMany(it => it.Organizes).HasForeignKey(it => it.CategoryId);
+            builder.HasOne(it => it.Parent).WithMany(it => it.SubOrganizes).HasForeignKey(it => it.ParentId);
+        }
     }
 }

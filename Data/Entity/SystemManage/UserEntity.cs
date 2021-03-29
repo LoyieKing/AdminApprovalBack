@@ -27,4 +27,6 @@ namespace Data.Entity.SystemManage
 
         public List<UserOrganizeEntity> Organizes { get; set; } = null!;
     }
+
+    class UserMap : EntityTypeConfiguration<UserEntity> { }
 }

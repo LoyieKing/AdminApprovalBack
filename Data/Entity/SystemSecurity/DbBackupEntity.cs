@@ -13,4 +13,6 @@ namespace Data.Entity.SystemSecurity
         public DateTime? BackupTime { get; set; }
         public string Description { get; set; } = null!;
     }
+
+    class DbBackupMap : EntityTypeConfiguration<DbBackupEntity> { }
 }

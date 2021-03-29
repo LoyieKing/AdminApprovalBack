@@ -36,4 +36,7 @@ namespace Data.Entity.SystemSecurity
         /// </summary>
         public string Description { get; set; } = null!;
     }
+
+    class LogMap : EntityTypeConfiguration<LogEntity> { }
+
 }

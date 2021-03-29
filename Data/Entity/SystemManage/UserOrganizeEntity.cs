@@ -1,9 +1,5 @@
 ﻿using Data.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Entity.SystemManage
 {
@@ -12,5 +8,15 @@ namespace Data.Entity.SystemManage
         public UserEntity User { get; set; } = null!;
         public OrganizeEntity Organize { get; set; } = null!;
         public int DutyLevel { get; set; }
+    }
+
+    class UserOrganizeMap : EntityTypeConfiguration<UserOrganizeEntity>
+    {
+        public override void Configure(EntityTypeBuilder<UserOrganizeEntity> builder)
+        {
+            base.Configure(builder);
+            builder.HasOne(it => it.User).WithMany(it => it.Organizes);
+            builder.HasOne(it => it.Organize).WithMany(it => it.Users);
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace Service
 
         public virtual void Update(TEnitity entity)
         {
-            if (entity.Id != -1)
+            if (entity.Id != 0)
             {
                 ModifyEntity(entity);
                 repo.Update(entity);
@@ -67,14 +67,14 @@ namespace Service
         protected virtual void CreateEntity(TEnitity entity)
         {
             var loginInfo = httpContextAccessor.HttpContext.GetUserInformation();
-            entity.CreatorUserId = loginInfo?.Id ?? -1;
+            entity.CreatorUserId = loginInfo?.Id ?? 0;
             entity.CreatorTime = DateTime.Now;
         }
 
         protected virtual void ModifyEntity(TEnitity entity)
         {
             var loginInfo = httpContextAccessor.HttpContext.GetUserInformation();
-            entity.LastModifyUserId = loginInfo?.Id ?? -1;
+            entity.LastModifyUserId = loginInfo?.Id ?? 0;
             entity.LastModifyTime = DateTime.Now;
         }
 

@@ -21,7 +21,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         [HttpGet]
         public IActionResult Index()
         {
-            var menus = repoService.IQueryable().Select(it => it.ToMenuModel());
+            var menus = repoService.IQueryable().Select(it => new MenuModel().FromEntity(it));
             return Success(menus);
         }
 
@@ -32,7 +32,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             {
                 return Error("路径和URL只能指定一个！");
             }
-            MenuEntity menuEntity = menu.ToMenuEntity();
+            MenuEntity menuEntity = menu.ToEntity();
             if (parent != null)
             {
                 var parentEntity = repoService.IQueryable().FirstOrDefault(it => it.Id == parent);

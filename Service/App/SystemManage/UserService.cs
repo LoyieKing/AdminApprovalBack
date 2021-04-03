@@ -83,5 +83,20 @@ namespace AdminApprovalBack.Services.SystemManage
             userEntity.Password = Md5.Hash(DesEncrypt.Encrypt(newpwd).ToLower(), 32).ToLower();
             service.Update(userEntity);
         }
+
+        public bool IsHigherLevel(int userId, int higherUserId)
+        {
+            var user = service.FindOne(userId);
+            var higher = service.FindOne(higherUserId);
+            var orgs = new Queue<OrganizeEntity>();
+            higher.Organizes.ForEach(org => org.Organize.SubOrganizes.ForEach(suborg => orgs.Enqueue(suborg)));
+            while (orgs.Count != 0)
+            {
+                var org = orgs.Dequeue();
+                if (user.Organizes.Any(userorg => userorg.Id == org.Id)) return true;
+                org.SubOrganizes.ForEach(suborg => orgs.Enqueue(org));
+            }
+            return false;
+        }
     }
 }

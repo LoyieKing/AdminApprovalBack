@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using Data.Entity.Business;
 using Data.Infrastructure;
 
 namespace Data.Entity.SystemManage
@@ -26,6 +27,7 @@ namespace Data.Entity.SystemManage
         public string Password { get; set; } = null!;
 
         public List<UserOrganizeEntity> Organizes { get; set; } = null!;
+        public List<InfoInstanceEntity> InfoInstances { get; set; } = null!;
     }
 
     class UserMap : EntityTypeConfiguration<UserEntity> { }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Models
 {
-    public class MenuModel
+    public class MenuModel : IModel<MenuModel, MenuEntity>
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Icon { get; set; } = null!;
         public string? BasePath { get; set; }
@@ -17,39 +17,11 @@ namespace AdminApprovalBack.Models
         public int Priority { get; set; }
         public MenuEntity.TargetType? Target { get; set; }
         public IEnumerable<MenuModel> Children { get; set; } = null!;
-    }
 
-    public static class MenuModelExtension
-    {
-        public static MenuModel ToMenuModel(this MenuEntity menuEntity)
+        protected override void OnFromEntity(MenuEntity entity)
         {
-            return new MenuModel
-            {
-                Id = menuEntity.Id,
-                Name = menuEntity.Name,
-                Icon = menuEntity.Icon,
-                BasePath = menuEntity.BasePath,
-                Path = menuEntity.Path,
-                Url = menuEntity.Url,
-                Priority = menuEntity.Priority,
-                Target = menuEntity.Target,
-                Children = menuEntity.Children.Select(it => menuEntity.ToMenuModel())
-            };
-        }
-
-        public static MenuEntity ToMenuEntity(this MenuModel menuModel)
-        {
-            return new MenuEntity
-            {
-                Id = menuModel.Id,
-                Name = menuModel.Name,
-                Icon = menuModel.Icon,
-                BasePath = menuModel.BasePath,
-                Path = menuModel.Path,
-                Url = menuModel.Url,
-                Priority = menuModel.Priority,
-                Target = menuModel.Target
-            };
+            base.OnFromEntity(entity);
+            Children = entity.Children.Select(it => new MenuModel().FromEntity(it));
         }
     }
 }

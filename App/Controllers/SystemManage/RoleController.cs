@@ -32,7 +32,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         [HttpGet]
         public IActionResult Index()
         {
-            var data = repoService.IQueryable().Select(it => it.ToRoleModel());
+            var data = repoService.IQueryable().Select(it => new RoleModel().FromEntity(it));
             return Success(data);
         }
 
@@ -48,11 +48,13 @@ namespace AdminApprovalBack.Controllers.SystemManage
             {
                 return Error("组织类型不存在！");
             }
-            var menus = roleModel.AvailableMenuIds?.Select(it => menuService.FindOne(it));
-            foreach
-            if (menus.Any)
+            var menus = roleModel.AvailableMenuIds?.Select(it => menuService.FindOne(it)) ?? new List<MenuEntity>();
+            foreach (var menu in menus)
             {
-                return Error("菜单类型错误！");
+                if (menu == null)
+                {
+                    return Error("菜单类型错误！");
+                }
             }
             var roleEntity = new RoleEntity()
             {
@@ -65,8 +67,8 @@ namespace AdminApprovalBack.Controllers.SystemManage
             repoService.Update(roleEntity);
 
             roleMenuService.Delete(it => it.Role.Id == roleModel.Id);
-            roleModel.AvailableMenuIds?.ForEach(id => roleMenuService.Update(new RoleMenuEntity { Role = roleEntity, Menu = new MenuEntity { Id = id } }));
-
+            menus.ForEach(menu => roleMenuService.Update(new RoleMenuEntity { Role = roleEntity, Menu = menu }));
+            return Success();
         }
     }
 }

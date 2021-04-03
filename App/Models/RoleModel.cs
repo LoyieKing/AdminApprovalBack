@@ -6,30 +6,20 @@ using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Models
 {
-    public class RoleModel
+    public class RoleModel : IModel<RoleModel, RoleEntity>
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string? Name { get; set; } = null!;
         public string? Description { get; set; } = null!;
         public int OrganizeCategoryId { get; set; }
         public int? OrganizeDutyLevel { get; set; }
         public IEnumerable<int>? AvailableMenuIds { get; set; } = null!;
-    }
 
-
-    public static class RoleModelExtension
-    {
-        public static RoleModel ToRoleModel(this RoleEntity roleEntity)
+        protected override void OnFromEntity(RoleEntity entity)
         {
-            return new RoleModel
-            {
-                Id = roleEntity.Id,
-                Name = roleEntity.Name,
-                Description = roleEntity.Description,
-                OrganizeCategoryId = roleEntity.OrganizeCategoryId,
-                OrganizeDutyLevel = roleEntity.OrganizeDutyLevel,
-                AvailableMenuIds = roleEntity.AvailableMenus.Select(it => it.Id)
-            };
+            base.OnFromEntity(entity);
+            OrganizeDutyLevel = entity.OrganizeDutyLevel;
+            AvailableMenuIds = entity.AvailableMenus.Select(it => it.Id);
         }
     }
 }

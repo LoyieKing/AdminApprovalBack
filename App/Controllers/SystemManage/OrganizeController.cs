@@ -21,7 +21,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         [HttpGet]
         public IActionResult Index()
         {
-            var datas = repoService.IQueryable().Select(it => it.ToOrganizeModel());
+            var datas = repoService.IQueryable().Select(it => new OrganizeModel().FromEntity(it));
             return Success(datas);
         }
 

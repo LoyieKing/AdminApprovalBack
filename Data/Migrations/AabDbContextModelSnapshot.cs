@@ -17,6 +17,304 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.4");
 
+            modelBuilder.Entity("Data.Entity.Approval.ApprovalTableEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("CreatorTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DeleteUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModifyTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("LastModifyUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("OwnerOrganizeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.HasIndex("DeleteUserId");
+
+                    b.HasIndex("LastModifyUserId");
+
+                    b.HasIndex("OwnerOrganizeId");
+
+                    b.ToTable("ApprovalTableEntity");
+                });
+
+            modelBuilder.Entity("Data.Entity.Approval.InfoClassEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("CreatorTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DeleteUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpiredMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModifyTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("LastModifyUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.HasIndex("DeleteUserId");
+
+                    b.HasIndex("LastModifyUserId");
+
+                    b.ToTable("InfoClassEntity");
+                });
+
+            modelBuilder.Entity("Data.Entity.Approval.InfoGroupEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ApprovalTableEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatorTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DeleteUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModifyTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("LastModifyUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovalTableEntityId");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.HasIndex("DeleteUserId");
+
+                    b.HasIndex("LastModifyUserId");
+
+                    b.ToTable("InfoGroupEntity");
+                });
+
+            modelBuilder.Entity("Data.Entity.Approval.InfoGroupItemEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatorTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DeleteUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModifyTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("LastModifyUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.HasIndex("DeleteUserId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("LastModifyUserId");
+
+                    b.ToTable("InfoGroupItemEntity");
+                });
+
+            modelBuilder.Entity("Data.Entity.Business.ApprovalInstanceEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AppprovalTableId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatorTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DeleteUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("LastModifyTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("LastModifyUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppprovalTableId");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.HasIndex("DeleteUserId");
+
+                    b.HasIndex("LastModifyUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ApprovalInstanceEntity");
+                });
+
+            modelBuilder.Entity("Data.Entity.Business.InfoInstanceEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ApprovalInstanceEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatorTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CreatorUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("DeleteUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InfoClassId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModifyTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("LastModifyUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovalInstanceEntityId");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.HasIndex("DeleteUserId");
+
+                    b.HasIndex("InfoClassId");
+
+                    b.HasIndex("LastModifyUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("InfoInstanceEntity");
+                });
+
             modelBuilder.Entity("Data.Entity.SystemManage.MenuEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -58,8 +356,11 @@ namespace Data.Migrations
                     b.Property<string>("Path")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Target")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Target")
+                        .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -185,6 +486,10 @@ namespace Data.Migrations
 
                     b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
@@ -494,6 +799,188 @@ namespace Data.Migrations
                     b.ToTable("LogEntity");
                 });
 
+            modelBuilder.Entity("Data.Entity.Approval.ApprovalTableEntity", b =>
+                {
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
+                        .WithMany()
+                        .HasForeignKey("DeleteUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
+                        .WithMany()
+                        .HasForeignKey("LastModifyUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.OrganizeEntity", "OwnerOrganize")
+                        .WithMany("ApprovalTables")
+                        .HasForeignKey("OwnerOrganizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatorUser");
+
+                    b.Navigation("DeleteUser");
+
+                    b.Navigation("LastModifyUser");
+
+                    b.Navigation("OwnerOrganize");
+                });
+
+            modelBuilder.Entity("Data.Entity.Approval.InfoClassEntity", b =>
+                {
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
+                        .WithMany()
+                        .HasForeignKey("DeleteUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
+                        .WithMany()
+                        .HasForeignKey("LastModifyUserId");
+
+                    b.Navigation("CreatorUser");
+
+                    b.Navigation("DeleteUser");
+
+                    b.Navigation("LastModifyUser");
+                });
+
+            modelBuilder.Entity("Data.Entity.Approval.InfoGroupEntity", b =>
+                {
+                    b.HasOne("Data.Entity.Approval.ApprovalTableEntity", null)
+                        .WithMany("InfoGroups")
+                        .HasForeignKey("ApprovalTableEntityId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
+                        .WithMany()
+                        .HasForeignKey("DeleteUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
+                        .WithMany()
+                        .HasForeignKey("LastModifyUserId");
+
+                    b.Navigation("CreatorUser");
+
+                    b.Navigation("DeleteUser");
+
+                    b.Navigation("LastModifyUser");
+                });
+
+            modelBuilder.Entity("Data.Entity.Approval.InfoGroupItemEntity", b =>
+                {
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
+                        .WithMany()
+                        .HasForeignKey("DeleteUserId");
+
+                    b.HasOne("Data.Entity.Approval.InfoGroupEntity", "Group")
+                        .WithMany("Items")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entity.Approval.InfoClassEntity", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
+                        .WithMany()
+                        .HasForeignKey("LastModifyUserId");
+
+                    b.Navigation("CreatorUser");
+
+                    b.Navigation("DeleteUser");
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Item");
+
+                    b.Navigation("LastModifyUser");
+                });
+
+            modelBuilder.Entity("Data.Entity.Business.ApprovalInstanceEntity", b =>
+                {
+                    b.HasOne("Data.Entity.Approval.ApprovalTableEntity", "AppprovalTable")
+                        .WithMany()
+                        .HasForeignKey("AppprovalTableId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
+                        .WithMany()
+                        .HasForeignKey("DeleteUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
+                        .WithMany()
+                        .HasForeignKey("LastModifyUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("AppprovalTable");
+
+                    b.Navigation("CreatorUser");
+
+                    b.Navigation("DeleteUser");
+
+                    b.Navigation("LastModifyUser");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Data.Entity.Business.InfoInstanceEntity", b =>
+                {
+                    b.HasOne("Data.Entity.Business.ApprovalInstanceEntity", null)
+                        .WithMany("InfoInstances")
+                        .HasForeignKey("ApprovalInstanceEntityId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
+                        .WithMany()
+                        .HasForeignKey("DeleteUserId");
+
+                    b.HasOne("Data.Entity.Approval.InfoClassEntity", "InfoClass")
+                        .WithMany()
+                        .HasForeignKey("InfoClassId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
+                        .WithMany()
+                        .HasForeignKey("LastModifyUserId");
+
+                    b.HasOne("Data.Entity.SystemManage.UserEntity", "User")
+                        .WithMany("InfoInstances")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatorUser");
+
+                    b.Navigation("DeleteUser");
+
+                    b.Navigation("InfoClass");
+
+                    b.Navigation("LastModifyUser");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Data.Entity.SystemManage.MenuEntity", b =>
                 {
                     b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
@@ -627,7 +1114,7 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Data.Entity.SystemManage.RoleEntity", "Role")
-                        .WithMany("AvaliableMenus")
+                        .WithMany("AvailableMenus")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -743,6 +1230,21 @@ namespace Data.Migrations
                     b.Navigation("LastModifyUser");
                 });
 
+            modelBuilder.Entity("Data.Entity.Approval.ApprovalTableEntity", b =>
+                {
+                    b.Navigation("InfoGroups");
+                });
+
+            modelBuilder.Entity("Data.Entity.Approval.InfoGroupEntity", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Data.Entity.Business.ApprovalInstanceEntity", b =>
+                {
+                    b.Navigation("InfoInstances");
+                });
+
             modelBuilder.Entity("Data.Entity.SystemManage.MenuEntity", b =>
                 {
                     b.Navigation("Children");
@@ -755,6 +1257,8 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Entity.SystemManage.OrganizeEntity", b =>
                 {
+                    b.Navigation("ApprovalTables");
+
                     b.Navigation("SubOrganizes");
 
                     b.Navigation("Users");
@@ -762,11 +1266,13 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.Entity.SystemManage.RoleEntity", b =>
                 {
-                    b.Navigation("AvaliableMenus");
+                    b.Navigation("AvailableMenus");
                 });
 
             modelBuilder.Entity("Data.Entity.SystemManage.UserEntity", b =>
                 {
+                    b.Navigation("InfoInstances");
+
                     b.Navigation("Organizes");
                 });
 #pragma warning restore 612, 618

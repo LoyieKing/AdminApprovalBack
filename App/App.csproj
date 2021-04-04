@@ -45,4 +45,19 @@
       <ProjectReference Include="..\Service\Service.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="fonts\Candara.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="fonts\impact.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="fonts\monbaiti.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="fonts\STCAIYUN.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

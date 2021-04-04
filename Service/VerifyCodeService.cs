@@ -38,15 +38,16 @@ namespace AdminApprovalBack.Services
             var algorithm = new HMACSHA256Algorithm(); // symmetric
             var serializer = new JsonNetSerializer();
             var urlEncoder = new JwtBase64UrlEncoder();
+            var validator = new JwtValidator(serializer, timeProvider);
             jwtEncoder = new JwtEncoder(algorithm, serializer, urlEncoder);
-            jwtDecoder = new JwtDecoder(serializer, urlEncoder);
+            jwtDecoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
         }
 
         public (string token, byte[] image) GenerateCode()
         {
             var code = Utils.RndEnNum(4);
             var image = securityCodeHelper.GetEnDigitalCodeByte(code);
-            var token = jwtEncoder.Encode(new Payload { Code = DesEncrypt.Encrypt(code, secret), ExpiredAt = (long)UnixEpoch.GetSecondsSince(timeProvider.GetNow().AddMinutes(1)) }, secretBytes);
+            var token = jwtEncoder.Encode(new Payload { Code = DesEncrypt.Encrypt(code, secret), ExpiredAt = (long)UnixEpoch.GetSecondsSince(timeProvider.GetNow().AddMinutes(10)) }, secretBytes);
             return (token, image);
         }
 
@@ -56,11 +57,8 @@ namespace AdminApprovalBack.Services
             {
                 var now = (long)UnixEpoch.GetSecondsSince(timeProvider.GetNow());
                 var payload = jwtDecoder.DecodeToObject<Payload>(token, secretBytes, true);
-                if (payload.ExpiredAt > now)
-                {
-                    return State.Expired;
-                }
-                if (payload.Code == DesEncrypt.Encrypt(myCode, secret))
+                var realCode = DesEncrypt.Decrypt(payload.Code, secret);
+                if (realCode.ToUpper() == myCode.ToUpper())
                 {
                     return State.OK;
                 }
@@ -69,8 +67,9 @@ namespace AdminApprovalBack.Services
                     return State.WrongCode;
                 }
             }
-            catch (SignatureVerificationException)
+            catch (SignatureVerificationException e)
             {
+                if (e.Message == "Token has expired.") return State.Expired;
                 return State.Invalid;
             }
             catch (Exception e)

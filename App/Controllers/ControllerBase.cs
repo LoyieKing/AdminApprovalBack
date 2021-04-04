@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Controllers
 {
+
     public abstract class ControllerBase : Controller
     {
         protected virtual IActionResult Success()
@@ -42,6 +43,11 @@ namespace AdminApprovalBack.Controllers
                 throw new Exception("尚未登录!");
             }
             return user;
+        }
+
+        protected virtual string throwStringAssert(string message)
+        {
+            throw new Exception(message);
         }
     }
 }

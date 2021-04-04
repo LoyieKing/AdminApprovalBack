@@ -67,14 +67,14 @@ namespace Service
         protected virtual void CreateEntity(TEnitity entity)
         {
             var loginInfo = httpContextAccessor.HttpContext.GetUserInformation();
-            entity.CreatorUserId = loginInfo?.Id ?? 0;
+            entity.CreatorUserId = loginInfo?.Id;
             entity.CreatorTime = DateTime.Now;
         }
 
         protected virtual void ModifyEntity(TEnitity entity)
         {
             var loginInfo = httpContextAccessor.HttpContext.GetUserInformation();
-            entity.LastModifyUserId = loginInfo?.Id ?? 0;
+            entity.LastModifyUserId = loginInfo?.Id;
             entity.LastModifyTime = DateTime.Now;
         }
 

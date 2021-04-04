@@ -11,13 +11,13 @@ using System;
 
 namespace AdminApprovalBack.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : ControllerBase
     {
         private readonly VerifyCodeService verifyCodeService;
         private readonly LogService logger;
         private readonly UserService userService;
 
-        public LoginController(VerifyCodeService verifyCodeService, LogService logger,UserService userApp)
+        public LoginController(VerifyCodeService verifyCodeService, LogService logger, UserService userApp)
         {
             this.verifyCodeService = verifyCodeService;
             this.logger = logger;
@@ -41,14 +41,17 @@ namespace AdminApprovalBack.Controllers
             }
             logger.WriteDbLog(DbLogType.Exit.ToString(), true, "安全退出系统");
             HttpContext.Response.Cookies.Delete("Authorization");
-            return RedirectToAction("Index", "Login");
+            return Success();
         }
 
         [HttpPost]
-        public IActionResult CheckLogin(string username, string password, string code)
+        public IActionResult CheckLogin([FromBody] LoginParam param)
         {
             try
             {
+                string username = param.Username ?? throwStringAssert("用户名不能为空");
+                string password = param.Password ?? throwStringAssert("密码不能为空");
+                string code = param.Code ?? throwStringAssert("验证码不能为空");
                 var vcodeSession = Request.Cookies["vcode-session"];
                 if (string.IsNullOrEmpty(vcodeSession))
                 {
@@ -76,6 +79,13 @@ namespace AdminApprovalBack.Controllers
 
                 return Json(new { success = false, message = msg });
             }
+        }
+
+        public record LoginParam
+        {
+            public string? Username { get; set; }
+            public string? Password { get; set; }
+            public string? Code { get; set; }
         }
     }
 }

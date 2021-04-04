@@ -30,12 +30,17 @@ namespace AdminApprovalBack
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             this.Configuration = builder.Build();
+            Console.WriteLine(env.ContentRootPath);
         }
 
         public IConfigurationRoot Configuration { get; private set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:13957").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            });
             services.AddControllers();
             services.AddData(options =>
             {
@@ -65,8 +70,9 @@ namespace AdminApprovalBack
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+            app.UseCors();
+            //app.UseHttpsRedirection();
+            
 
             app.UseRouting();
 

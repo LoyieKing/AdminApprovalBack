@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Service.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Controllers
@@ -11,6 +14,9 @@ namespace AdminApprovalBack.Controllers
 
     public abstract class ControllerBase : Controller
     {
+        private static JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
+
         protected virtual IActionResult Success()
         {
             return Json(new { success = true });
@@ -33,6 +39,11 @@ namespace AdminApprovalBack.Controllers
                 context.Result = Error(error.Message);
                 context.ExceptionHandled = true;
             }
+        }
+
+        public override JsonResult Json(object data)
+        {
+            return base.Json(data, jsonSerializerOptions);
         }
 
         protected virtual UserInformation GetUserInformation()

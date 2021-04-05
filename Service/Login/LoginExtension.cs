@@ -3,6 +3,8 @@ using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,12 @@ namespace Service.Login
     {
         private static readonly string secret = "wAngy1lei0Nradu2a4!clkSLKasdlzkc";
         private static readonly byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
-        private static readonly JwtEncoder jwtEncoder = new JwtEncoder(new HMACSHA256Algorithm(), new JsonNetSerializer(), new JwtBase64UrlEncoder());
-        private static readonly JwtDecoder jwtDecoder = new JwtDecoder(new JsonNetSerializer(), new JwtBase64UrlEncoder());
+
+        private static JsonSerializerSettings ssonSerializerSettings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+        private static JsonNetSerializer jsonNetSerializer = new JsonNetSerializer(JsonSerializer.Create(ssonSerializerSettings));
+
+        private static readonly JwtEncoder jwtEncoder = new JwtEncoder(new HMACSHA256Algorithm(), jsonNetSerializer, new JwtBase64UrlEncoder());
+        private static readonly JwtDecoder jwtDecoder = new JwtDecoder(jsonNetSerializer, new JwtBase64UrlEncoder());
 
         public static UserInformation? GetUserInformation(this HttpContext context)
         {
@@ -41,15 +47,15 @@ namespace Service.Login
             }
         }
 
-        public static void SetUserInformation(this HttpContext httpContext, UserEntity userEntity)
+        public static string CreateJwtToken(UserEntity userEntity)
         {
             var information = new UserInformation
             {
                 Id = userEntity.Id,
-                UserName = userEntity.UsernName,
+                UserName = userEntity.UserName,
                 LoginTime = DateTime.Now
             };
-            httpContext.Response.Cookies.Append("Authorization", "Bear " + jwtEncoder.Encode(information, secretBytes));
+            return jwtEncoder.Encode(information, secretBytes);
         }
     }
 }

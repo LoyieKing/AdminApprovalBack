@@ -16,11 +16,11 @@
         /// <summary>
         /// 排序列
         /// </summary>
-        public string sidx { get; set; }
+        public string? sidx { get; set; }
         /// <summary>
         /// 排序类型
         /// </summary>
-        public string sord { get; set; }
+        public string? sord { get; set; }
         /// <summary>
         /// 总记录数
         /// </summary>

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AabDbContext))]
-    [Migration("20210404104342_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210404135103_Avatar")]
+    partial class Avatar
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,19 +32,19 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -80,13 +80,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("ExpiredMinutes")
@@ -95,7 +95,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -125,19 +125,19 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -166,13 +166,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("GroupId")
@@ -184,7 +184,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -218,13 +218,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -234,7 +234,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
@@ -271,13 +271,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<int?>("InfoClassId")
@@ -286,7 +286,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -329,13 +329,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Icon")
@@ -345,7 +345,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -392,19 +392,19 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -434,19 +434,19 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -480,13 +480,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -496,7 +496,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -531,19 +531,19 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("MenuId")
@@ -574,7 +574,6 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Avatar")
-                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("Birthday")
@@ -587,13 +586,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<bool?>("EnabledMark")
@@ -608,7 +607,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
@@ -619,7 +618,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("UsernName")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -643,13 +642,13 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("DutyLevel")
@@ -658,7 +657,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("OrganizeId")
@@ -698,7 +697,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("DbName")
@@ -708,7 +707,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -730,7 +729,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -753,7 +752,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("CreatorTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("CreatorUserId")
+                    b.Property<int?>("CreatorUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Date")
@@ -762,7 +761,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("DeleteTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DeleteUserId")
+                    b.Property<int?>("DeleteUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -776,7 +775,7 @@ namespace Data.Migrations
                     b.Property<DateTime?>("LastModifyTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("LastModifyUserId")
+                    b.Property<int?>("LastModifyUserId")
                         .HasColumnType("int");
 
                     b.Property<bool?>("Result")
@@ -859,21 +858,15 @@ namespace Data.Migrations
 
                     b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
                         .WithMany()
-                        .HasForeignKey("CreatorUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatorUserId");
 
                     b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
                         .WithMany()
-                        .HasForeignKey("DeleteUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DeleteUserId");
 
                     b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
                         .WithMany()
-                        .HasForeignKey("LastModifyUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LastModifyUserId");
 
                     b.Navigation("CreatorUser");
 
@@ -1020,21 +1013,15 @@ namespace Data.Migrations
                 {
                     b.HasOne("Data.Entity.SystemManage.UserEntity", "CreatorUser")
                         .WithMany()
-                        .HasForeignKey("CreatorUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatorUserId");
 
                     b.HasOne("Data.Entity.SystemManage.UserEntity", "DeleteUser")
                         .WithMany()
-                        .HasForeignKey("DeleteUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DeleteUserId");
 
                     b.HasOne("Data.Entity.SystemManage.UserEntity", "LastModifyUser")
                         .WithMany()
-                        .HasForeignKey("LastModifyUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LastModifyUserId");
 
                     b.Navigation("CreatorUser");
 

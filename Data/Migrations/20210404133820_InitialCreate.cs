@@ -14,7 +14,7 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UsernName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
+                    UserName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     RealName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Avatar = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Gender = table.Column<bool>(type: "tinyint(1)", nullable: true),
@@ -23,11 +23,11 @@ namespace Data.Migrations
                     IsAdministrator = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     EnabledMark = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     Password = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -66,11 +66,11 @@ namespace Data.Migrations
                     FilePath = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     BackupTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -105,11 +105,11 @@ namespace Data.Migrations
                     Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     ExpiredMinutes = table.Column<int>(type: "int", nullable: false),
                     Category = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -147,11 +147,11 @@ namespace Data.Migrations
                     IPAddress = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Result = table.Column<bool>(type: "tinyint(1)", nullable: true),
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -191,11 +191,11 @@ namespace Data.Migrations
                     Target = table.Column<int>(type: "int", nullable: true),
                     Priority = table.Column<int>(type: "int", nullable: false),
                     ParentId = table.Column<int>(type: "int", nullable: true),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -235,11 +235,11 @@ namespace Data.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Category = table.Column<int>(type: "int", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -250,19 +250,19 @@ namespace Data.Migrations
                         column: x => x.CreatorUserId,
                         principalTable: "UserEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrganizeCategoryEntity_UserEntity_DeleteUserId",
                         column: x => x.DeleteUserId,
                         principalTable: "UserEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrganizeCategoryEntity_UserEntity_LastModifyUserId",
                         column: x => x.LastModifyUserId,
                         principalTable: "UserEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -274,11 +274,11 @@ namespace Data.Migrations
                     ParentId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -326,11 +326,11 @@ namespace Data.Migrations
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     OrganizeCategoryId = table.Column<int>(type: "int", nullable: false),
                     OrganizeDutyLevel = table.Column<int>(type: "int", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -371,11 +371,11 @@ namespace Data.Migrations
                     Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Category = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     OwnerOrganizeId = table.Column<int>(type: "int", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -416,11 +416,11 @@ namespace Data.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     OrganizeId = table.Column<int>(type: "int", nullable: false),
                     DutyLevel = table.Column<int>(type: "int", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -466,11 +466,11 @@ namespace Data.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     MenuId = table.Column<int>(type: "int", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -518,11 +518,11 @@ namespace Data.Migrations
                     AppprovalTableId = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     State = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -568,11 +568,11 @@ namespace Data.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     ApprovalTableEntityId = table.Column<int>(type: "int", nullable: true),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -589,19 +589,19 @@ namespace Data.Migrations
                         column: x => x.CreatorUserId,
                         principalTable: "UserEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_InfoGroupEntity_UserEntity_DeleteUserId",
                         column: x => x.DeleteUserId,
                         principalTable: "UserEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_InfoGroupEntity_UserEntity_LastModifyUserId",
                         column: x => x.LastModifyUserId,
                         principalTable: "UserEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -615,11 +615,11 @@ namespace Data.Migrations
                     Value = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Status = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     ApprovalInstanceEntityId = table.Column<int>(type: "int", nullable: true),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
@@ -672,11 +672,11 @@ namespace Data.Migrations
                     GroupId = table.Column<int>(type: "int", nullable: false),
                     ItemId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    CreatorUserId = table.Column<int>(type: "int", nullable: false),
+                    CreatorUserId = table.Column<int>(type: "int", nullable: true),
                     CreatorTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    DeleteUserId = table.Column<int>(type: "int", nullable: false),
+                    DeleteUserId = table.Column<int>(type: "int", nullable: true),
                     DeleteTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    LastModifyUserId = table.Column<int>(type: "int", nullable: false),
+                    LastModifyUserId = table.Column<int>(type: "int", nullable: true),
                     LastModifyTime = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>

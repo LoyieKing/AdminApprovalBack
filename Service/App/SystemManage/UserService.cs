@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace AdminApprovalBack.Services.SystemManage
 {
-    public class UserService 
+    public class UserService
     {
         private readonly RepoService<UserEntity> service;
 
@@ -22,10 +22,9 @@ namespace AdminApprovalBack.Services.SystemManage
         public IQueryable<UserEntity> GetList(Pagination pagination, string keyword)
         {
             var query = service.IQueryable();
-            query = query.Where(it => it.UsernName != "admin");
             if (!string.IsNullOrEmpty(keyword))
             {
-                query = query.Where(it => it.UsernName.Contains(keyword) || it.RealName.Contains(keyword) || it.Contract.Contains(keyword));
+                query = query.Where(it => it.UserName.Contains(keyword) || it.RealName.Contains(keyword) || it.Contract.Contains(keyword));
             }
             return query.PaginationBy(pagination);
         }
@@ -44,9 +43,14 @@ namespace AdminApprovalBack.Services.SystemManage
             service.Delete(id);
         }
 
+        public string HashPassword(string pwd)
+        {
+            return Md5.Hash(DesEncrypt.Encrypt(pwd).ToLower(), 32).ToLower();
+        }
+
         public UserEntity CheckPassword(string username, string password)
         {
-            UserEntity userEntity = service.IQueryable().Where(t => t.UsernName == username).FirstOrDefault();
+            UserEntity userEntity = service.IQueryable().Where(t => t.UserName == username).FirstOrDefault();
             if (userEntity == null)
             {
                 throw new Exception("账户不存在，请重新输入");
@@ -58,7 +62,7 @@ namespace AdminApprovalBack.Services.SystemManage
 
 
 
-            password = Md5.Hash(DesEncrypt.Encrypt(password).ToLower(), 32).ToLower();
+            password = HashPassword(password);
             if (password != userEntity.Password)
             {
                 throw new Exception("密码不正确，请重新输入");
@@ -75,12 +79,12 @@ namespace AdminApprovalBack.Services.SystemManage
                 throw new Exception("账户不存在，请重新输入");
             }
 
-            oldpwd = Md5.Hash(DesEncrypt.Encrypt(oldpwd).ToLower(), 32).ToLower();
+            oldpwd = HashPassword(oldpwd);
             if (oldpwd != userEntity.Password)
             {
                 throw new Exception("密码不正确，请重新输入");
             }
-            userEntity.Password = Md5.Hash(DesEncrypt.Encrypt(newpwd).ToLower(), 32).ToLower();
+            userEntity.Password = HashPassword(newpwd);
             service.Update(userEntity);
         }
 

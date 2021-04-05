@@ -3,6 +3,7 @@ using AdminApprovalBack.Services.SystemManage;
 using Common.Query;
 using Data.Entity.SystemManage;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Service.Login;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,9 @@ namespace AdminApprovalBack.Controllers.SystemManage
         }
         [HttpGet]
         [HandlerAuthorize]
-        public IActionResult Index(Pagination pagination, string keyword)
+        public IActionResult Index([FromQuery(Name = "pagination")] string page, [FromQuery] string keyword)
         {
+            var pagination = JsonConvert.DeserializeObject<Pagination>(page);
             var data = new
             {
                 rows = userService.GetList(pagination, keyword),
@@ -39,7 +41,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             return Success(data);
         }
         [HttpPost]
-        public IActionResult Update(UserEntity userEntity)
+        public IActionResult Update([FromBody] UserEntity userEntity)
         {
             var userInfo = HttpContext.GetUserInformation();
             var admin = userInfo?.IsAdmin ?? false;
@@ -48,7 +50,18 @@ namespace AdminApprovalBack.Controllers.SystemManage
             {
                 return Error("权限不足！您只能修改自己的账户信息");
             }
-            userEntity.Password = null!;
+
+            if (admin)
+            {
+                if (userEntity.Password != null)
+                {
+                    userEntity.Password = userService.HashPassword(userEntity.Password);
+                }
+            }
+            else
+            {
+                userEntity.Password = null!;
+            }
             userService.Update(userEntity);
             return Success();
         }

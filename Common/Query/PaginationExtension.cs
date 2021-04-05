@@ -10,8 +10,8 @@ namespace Common.Query
         public static IQueryable<T> PaginationBy<T>(this IQueryable<T> queryable, Pagination pagination)
         {
             if (pagination == null) return queryable;
-            bool isAsc = pagination.sord.ToLower() == "asc";
-            string[] order = pagination.sidx.Split(',');
+            bool isAsc = pagination.sord?.ToLower() == "asc";
+            string[] order = pagination.sidx?.Split(',') ?? Array.Empty<string>();
             MethodCallExpression? resultExp = null;
             foreach (string item in order)
             {
@@ -30,7 +30,7 @@ namespace Common.Query
                 var propertyAccess = Expression.MakeMemberAccess(parameter, property);
                 var orderByExp = Expression.Lambda(propertyAccess, parameter);
                 resultExp = Expression.Call(typeof(Queryable), isAsc ? "OrderBy" : "OrderByDescending",
-                    new Type[] {typeof(T), property.PropertyType}, queryable.Expression,
+                    new Type[] { typeof(T), property.PropertyType }, queryable.Expression,
                     Expression.Quote(orderByExp));
             }
 
@@ -41,6 +41,6 @@ namespace Common.Query
 
             pagination.records = queryable.Count();
             return queryable.Skip(pagination.rows * (pagination.page - 1)).Take(pagination.rows);
-        }   
+        }
     }
 }

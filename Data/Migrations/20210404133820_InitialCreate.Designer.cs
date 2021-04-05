@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AabDbContext))]
-    [Migration("20210404123142_FixIEntityFK")]
-    partial class FixIEntityFK
+    [Migration("20210404133820_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -619,7 +619,7 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("UsernName")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

@@ -8,9 +8,9 @@ namespace Data.Entity.SystemManage
 {
     public class UserEntity : IEntity
     {
-        public string UsernName { get; set; } = null!;
+        public string UserName { get; set; } = null!;
         public string RealName { get; set; } = null!;
-        public string Avatar { get; set; } = null!;
+        public string? Avatar { get; set; } = null!;
         public bool? Gender { get; set; }
         public DateTime? Birthday { get; set; }
 

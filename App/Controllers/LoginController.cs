@@ -67,10 +67,9 @@ namespace AdminApprovalBack.Controllers
 
                 UserEntity userEntity = userService.CheckPassword(username, password);
 
-                HttpContext.SetUserInformation(userEntity);
                 logger.WriteDbLog(DbLogType.Login.ToString(), true, "登录成功");
 
-                return Json(new { success = true, message = "登录成功" });
+                return Json(new { success = true, data = LoginExtension.CreateJwtToken(userEntity) });
             }
             catch (Exception ex)
             {

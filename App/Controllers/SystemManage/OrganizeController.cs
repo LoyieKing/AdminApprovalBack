@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Controllers.SystemManage
 {
+    [Area("SystemManage")]
     public class OrganizeController : ControllerBase
     {
         private readonly RepoService<OrganizeEntity> repoService;

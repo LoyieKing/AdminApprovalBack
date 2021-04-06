@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Controllers.SystemManage
 {
+    [Area("SystemManage")]
     public class MenuController:ControllerBase
     {
         private readonly RepoService<MenuEntity> repoService;

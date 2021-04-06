@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Controllers.SystemManage
 {
+    [Area("SystemManage")]
     public class RoleController:ControllerBase
     {
         private readonly RepoService<RoleEntity> repoService;

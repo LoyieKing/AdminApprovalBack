@@ -20,6 +20,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         {
             this.userService = userService;
         }
+
         [HttpGet]
         [HandlerAuthorize]
         public IActionResult Index([FromQuery(Name = "pagination")] string page, [FromQuery] string keyword)
@@ -34,12 +35,14 @@ namespace AdminApprovalBack.Controllers.SystemManage
             };
             return Success(data);
         }
+
         [HttpGet]
         public IActionResult One(int id)
         {
             var data = userService.FindOne(id);
             return Success(data);
         }
+
         [HttpPost]
         public IActionResult Update([FromBody] UserEntity userEntity)
         {
@@ -62,14 +65,30 @@ namespace AdminApprovalBack.Controllers.SystemManage
             {
                 userEntity.Password = null!;
             }
+
             userService.Update(userEntity);
             return Success();
         }
+
         [HttpPost]
         [HandlerAuthorize]
-        public IActionResult Delete(int id)
+        public IActionResult Delete([FromQuery] int id)
         {
             userService.Delete(id);
+            return Success();
+        }
+
+        [HttpPost]
+        [HandlerAuthorize]
+        public IActionResult Deletes([FromBody] int[] ids)
+        {
+            using var trans = userService.DbContext.Database.BeginTransaction();
+            foreach (var id in ids)
+            {
+                userService.Delete(id);
+            }
+
+            trans.Commit();
             return Success();
         }
 
@@ -79,6 +98,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             userService.RevisePassword(id, oldpwd, newpwd);
             return Success();
         }
+
         [HttpPost]
         [HandlerAuthorize]
         public IActionResult DisabledAccount(int keyValue)
@@ -89,6 +109,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             userService.Update(userEntity);
             return Success();
         }
+
         [HttpPost]
         [HandlerAuthorize]
         public IActionResult EnabledAccount(int keyValue)

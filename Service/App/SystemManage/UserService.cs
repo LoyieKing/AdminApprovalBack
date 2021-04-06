@@ -7,12 +7,15 @@ using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminApprovalBack.Services.SystemManage
 {
     public class UserService
     {
         private readonly RepoService<UserEntity> service;
+
+        public DbContext DbContext => service.DbContext;
 
         public UserService(RepoService<UserEntity> service)
         {
@@ -24,10 +27,13 @@ namespace AdminApprovalBack.Services.SystemManage
             var query = service.IQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
-                query = query.Where(it => it.UserName.Contains(keyword) || it.RealName.Contains(keyword) || it.Contract.Contains(keyword));
+                query = query.Where(it =>
+                    it.UserName.Contains(keyword) || it.RealName.Contains(keyword) || it.Contract.Contains(keyword));
             }
+
             return query.PaginationBy(pagination);
         }
+
         public void Update(UserEntity userEntity)
         {
             service.Update(userEntity);
@@ -55,11 +61,11 @@ namespace AdminApprovalBack.Services.SystemManage
             {
                 throw new Exception("账户不存在，请重新输入");
             }
+
             if (userEntity.EnabledMark == false)
             {
                 throw new Exception("账户被系统锁定,请联系管理员");
             }
-
 
 
             password = HashPassword(password);
@@ -84,6 +90,7 @@ namespace AdminApprovalBack.Services.SystemManage
             {
                 throw new Exception("密码不正确，请重新输入");
             }
+
             userEntity.Password = HashPassword(newpwd);
             service.Update(userEntity);
         }
@@ -100,6 +107,7 @@ namespace AdminApprovalBack.Services.SystemManage
                 if (user.Organizes.Any(userorg => userorg.Id == org.Id)) return true;
                 org.SubOrganizes.ForEach(suborg => orgs.Enqueue(org));
             }
+
             return false;
         }
     }

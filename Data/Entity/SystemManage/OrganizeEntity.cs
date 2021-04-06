@@ -13,8 +13,8 @@ namespace Data.Entity.SystemManage
         /// 父级组织ID
         /// </summary>
         public int? ParentId { get; set; }
-        public OrganizeEntity? Parent { get; set; }
-        public List<OrganizeEntity> SubOrganizes { get; set; } = null!;
+        public virtual OrganizeEntity? Parent { get; set; }
+        public virtual List<OrganizeEntity> SubOrganizes { get; set; } = null!;
 
         /// <summary>
         /// 中文名称
@@ -25,11 +25,11 @@ namespace Data.Entity.SystemManage
         /// 分类
         /// </summary>
         public int CategoryId { get; set; }
-        public OrganizeCategoryEntity Category { get; set; } = null!;
+        public virtual OrganizeCategoryEntity Category { get; set; } = null!;
 
-        public List<UserOrganizeEntity> Users { get; set; } = null!;
+        public virtual List<UserOrganizeEntity> Users { get; set; } = null!;
 
-        public List<ApprovalTableEntity> ApprovalTables { get; set; } = null!;
+        public virtual List<ApprovalTableEntity> ApprovalTables { get; set; } = null!;
     }
 
     class OrganizeMap : EntityTypeConfiguration<OrganizeEntity>

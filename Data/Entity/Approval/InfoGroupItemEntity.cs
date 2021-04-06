@@ -10,8 +10,8 @@ namespace Data.Entity.Approval
 {
     public class InfoGroupItemEntity : IEntity
     {
-        public InfoGroupEntity Group { get; set; }
-        public InfoClassEntity Item { get; set; }
+        public virtual InfoGroupEntity Group { get; set; }
+        public virtual InfoClassEntity Item { get; set; }
         public string Name { get; set; }
     }
 

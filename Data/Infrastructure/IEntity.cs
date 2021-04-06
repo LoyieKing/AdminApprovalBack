@@ -14,7 +14,7 @@ namespace Data.Infrastructure
         [Key]
         public int Id { get; set; }
         public int? CreatorUserId { get; set; }
-        public UserEntity? CreatorUser { get; set; }
+        public virtual UserEntity? CreatorUser { get; set; }
 
         public DateTime? CreatorTime { get; set; }
 
@@ -22,7 +22,7 @@ namespace Data.Infrastructure
         /// 删除实体的用户
         /// </summary>
         public int? DeleteUserId { get; set; }
-        public UserEntity? DeleteUser { get; set; }
+        public virtual UserEntity? DeleteUser { get; set; }
 
         /// <summary>
         /// 删除实体时间
@@ -30,7 +30,7 @@ namespace Data.Infrastructure
         public DateTime? DeleteTime { get; set; }
 
         public int? LastModifyUserId { get; set; }
-        public UserEntity? LastModifyUser { get; set; }
+        public virtual UserEntity? LastModifyUser { get; set; }
         public DateTime? LastModifyTime { get; set; }
     }
 }

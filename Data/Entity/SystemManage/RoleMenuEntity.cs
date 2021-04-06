@@ -10,8 +10,8 @@ namespace Data.Entity.SystemManage
 {
     public class RoleMenuEntity : IEntity
     {
-        public RoleEntity Role { get; set; } = null!;
-        public MenuEntity Menu { get; set; } = null!;
+        public virtual RoleEntity Role { get; set; } = null!;
+        public virtual MenuEntity Menu { get; set; } = null!;
     }
 
     class RoleMenuMap : EntityTypeConfiguration<RoleMenuEntity>

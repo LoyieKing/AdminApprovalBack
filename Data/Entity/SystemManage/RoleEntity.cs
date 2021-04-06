@@ -13,10 +13,10 @@ namespace Data.Entity.SystemManage
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public int OrganizeCategoryId { get; set; }
-        public OrganizeCategoryEntity OrganizeCategory { get; set; } = null!;
+        public virtual OrganizeCategoryEntity OrganizeCategory { get; set; } = null!;
         public int OrganizeDutyLevel { get; set; }
 
-        public List<RoleMenuEntity> AvailableMenus { get; set; } = null!;
+        public virtual List<RoleMenuEntity> AvailableMenus { get; set; } = null!;
     }
 
     class RoleMap : EntityTypeConfiguration<RoleEntity>

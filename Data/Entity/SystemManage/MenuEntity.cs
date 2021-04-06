@@ -25,8 +25,8 @@ namespace Data.Entity.SystemManage
         public TargetType? Target { get; set; }
         public int Priority { get; set; }
         public int? ParentId { get; set; }
-        public MenuEntity? Parent { get; set; }
-        public List<MenuEntity> Children { get; set; } = null!;
+        public virtual MenuEntity? Parent { get; set; }
+        public virtual List<MenuEntity> Children { get; set; } = null!;
     }
 
     class MenuMap : EntityTypeConfiguration<MenuEntity>

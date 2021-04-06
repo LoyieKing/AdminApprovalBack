@@ -46,6 +46,7 @@ namespace AdminApprovalBack
             {
                 options.UseMySql("Server=mysql.loyieking.com;Database=graduation;Uid=root;Pwd=924558375;", new MySqlServerVersion(new Version(8, 0)));
                 options.EnableDetailedErrors(true);
+                options.UseLazyLoadingProxies();
             });
             services.AddServices();
 

@@ -26,8 +26,8 @@ namespace Data.Entity.SystemManage
         public bool? EnabledMark { get; set; }
         public string Password { get; set; } = null!;
 
-        public List<UserOrganizeEntity> Organizes { get; set; } = null!;
-        public List<InfoInstanceEntity> InfoInstances { get; set; } = null!;
+        public virtual List<UserOrganizeEntity> Organizes { get; set; } = null!;
+        public virtual List<InfoInstanceEntity> InfoInstances { get; set; } = null!;
     }
 
     class UserMap : EntityTypeConfiguration<UserEntity> { }

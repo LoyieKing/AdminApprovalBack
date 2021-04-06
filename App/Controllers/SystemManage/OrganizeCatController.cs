@@ -24,7 +24,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         [HttpGet]
         public IActionResult Index()
         {
-            var datas = repoService.IQueryable().ToList();
+            var datas = repoService.IQueryable().Select(it => new OrganizeCategoryModel().FromEntity(it)).ToList();
             return Success(datas);
         }
 
@@ -43,6 +43,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             {
                 return Error("组织类型名不能为空！");
             }
+
             if (cat < 0 || cat > 1)
             {
                 return Error("组织类别不存在");

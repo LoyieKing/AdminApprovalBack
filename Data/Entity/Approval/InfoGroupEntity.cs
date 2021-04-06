@@ -11,7 +11,7 @@ namespace Data.Entity.Approval
     public class InfoGroupEntity : IEntity
     {
         public string Name { get; set; }
-        public List<InfoGroupItemEntity> Items { get; set; }
+        public virtual List<InfoGroupItemEntity> Items { get; set; }
     }
 
     class InfoGroupMap : EntityTypeConfiguration<InfoGroupItemEntity>

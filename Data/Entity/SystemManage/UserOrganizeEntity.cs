@@ -5,8 +5,8 @@ namespace Data.Entity.SystemManage
 {
     public class UserOrganizeEntity : IEntity
     {
-        public UserEntity User { get; set; } = null!;
-        public OrganizeEntity Organize { get; set; } = null!;
+        public virtual UserEntity User { get; set; } = null!;
+        public virtual OrganizeEntity Organize { get; set; } = null!;
         public int DutyLevel { get; set; }
     }
 

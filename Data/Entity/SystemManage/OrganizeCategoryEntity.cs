@@ -15,9 +15,9 @@ namespace Data.Entity.SystemManage
             Short
         }
 
-        public string Name { get; set; } = null!;
-        public Categories Category { get; set; }
+        public virtual string Name { get; set; } = null!;
+        public virtual Categories Category { get; set; }
 
-        public List<OrganizeEntity> Organizes { get; set; } = null!;
+        public virtual List<OrganizeEntity> Organizes { get; set; } = null!;
     }
 }

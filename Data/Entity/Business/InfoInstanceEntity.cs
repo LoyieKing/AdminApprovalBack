@@ -12,8 +12,8 @@ namespace Data.Entity.Business
 {
     public class InfoInstanceEntity : IEntity
     {
-        public UserEntity User { get; set; }
-        public InfoClassEntity InfoClass { get; set; }
+        public virtual UserEntity User { get; set; }
+        public virtual InfoClassEntity InfoClass { get; set; }
         public string Value { get; set; }
         public string Status { get; set; }
     }

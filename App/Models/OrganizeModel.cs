@@ -16,7 +16,7 @@ namespace AdminApprovalBack.Models
         protected override void OnFromEntity(OrganizeEntity entity)
         {
             base.OnFromEntity(entity);
-            SubOrganizes = entity.SubOrganizes?.Select(it => new OrganizeModel().FromEntity(entity)) ??
+            SubOrganizes = entity.SubOrganizes?.Select(it => new OrganizeModel().FromEntity(it)) ??
                            new List<OrganizeModel>();
         }
     }

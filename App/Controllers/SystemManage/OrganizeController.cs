@@ -25,12 +25,14 @@ namespace AdminApprovalBack.Controllers.SystemManage
         [HttpGet]
         public IActionResult Index()
         {
-            var datas = repoService.IQueryable().Select(it => new OrganizeModel().FromEntity(it)).ToList();
+            var entities = repoService.IQueryable().ToList();
+            var datas = entities.Where(it => it.Parent == null).Select(it => new OrganizeModel().FromEntity(it))
+                .ToList();
             return Success(datas);
         }
 
         [HttpPost]
-        public IActionResult Update(int id, string name, int cat, int parent)
+        public IActionResult Update(int id, string name, int cat, int? parent)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -43,9 +45,9 @@ namespace AdminApprovalBack.Controllers.SystemManage
             }
 
             OrganizeEntity? parentEntity = null;
-            if (parent != 0)
+            if ((parent ?? 0) != 0)
             {
-                parentEntity = repoService.FindOne(parent);
+                parentEntity = repoService.FindOne(parent!.Value);
                 if (parentEntity == null)
                 {
                     return Error("父组织不存在");
@@ -58,7 +60,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             }
 
             repoService.Update(new OrganizeEntity
-                {Id = id, CategoryId = cat, Name = name, ParentId = parent, Parent = parentEntity});
+                {Id = id, CategoryId = cat, Name = name, ParentId = parent});
             return Success();
         }
 

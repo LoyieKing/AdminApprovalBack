@@ -6,6 +6,7 @@ using System.Reflection;
 using Common.Query;
 using Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Data.RepositoryBase
 {
@@ -20,16 +21,13 @@ namespace Data.RepositoryBase
 
         public int Insert(TEntity entity)
         {
-            DbContext.Entry(entity).State = EntityState.Added;
+            DbContext.Add(entity);
             return DbContext.SaveChanges();
         }
 
         public int Insert(IEnumerable<TEntity> entities)
         {
-            foreach (var entity in entities)
-            {
-                DbContext.Entry(entity).State = EntityState.Added;
-            }
+            DbContext.Add(entities);
             return DbContext.SaveChanges();
         }
 
@@ -39,9 +37,14 @@ namespace Data.RepositoryBase
             PropertyInfo[] props = entity.GetType().GetProperties();
             foreach (PropertyInfo prop in props)
             {
+                if (prop.Name == "Id") continue;
                 var value = prop.GetValue(entity, null);
                 if (value == null) continue;
-                DbContext.Entry(entity).Property(prop.Name).IsModified = true;
+                var member = DbContext.Entry(entity).Member(prop.Name);
+                if (member is PropertyEntry propertyEntry)
+                {
+                    propertyEntry.IsModified = true;
+                }
             }
 
             return DbContext.SaveChanges();

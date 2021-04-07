@@ -13,13 +13,15 @@ namespace AdminApprovalBack.Models
         public string? Description { get; set; } = null!;
         public int OrganizeCategoryId { get; set; }
         public int? OrganizeDutyLevel { get; set; }
-        public IEnumerable<int>? AvailableMenuIds { get; set; } = null!;
+        public IEnumerable<String>? AvailableMenus { get; set; } = null!;
+        public IEnumerable<String>? AvailableApprovals { get; set; } = null!;
 
         protected override void OnFromEntity(RoleEntity entity)
         {
             base.OnFromEntity(entity);
             OrganizeDutyLevel = entity.OrganizeDutyLevel;
-            AvailableMenuIds = entity.AvailableMenus.Select(it => it.Id);
+            AvailableMenus = entity.AvailableMenus.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            AvailableApprovals = entity.AvailableApprovals.Split(",", StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

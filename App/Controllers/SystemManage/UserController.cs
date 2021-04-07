@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Service.Login;
 using System.Collections.Generic;
 using System.Linq;
+using AdminApprovalBack.Models;
 
 
 namespace AdminApprovalBack.Controllers.SystemManage
@@ -28,7 +29,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             var pagination = JsonConvert.DeserializeObject<Pagination>(page);
             var data = new
             {
-                rows = userService.GetList(pagination, keyword),
+                rows = userService.GetList(pagination, keyword).ToList().Select(it => new UserModel().FromEntity(it)),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records

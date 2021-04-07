@@ -16,7 +16,8 @@ namespace Data.Entity.SystemManage
         public virtual OrganizeCategoryEntity OrganizeCategory { get; set; } = null!;
         public int OrganizeDutyLevel { get; set; }
 
-        public virtual List<RoleMenuEntity> AvailableMenus { get; set; } = null!;
+        public virtual String AvailableMenus { get; set; } = null!;
+        public virtual String AvailableApprovals { get; set; } = null!;
     }
 
     class RoleMap : EntityTypeConfiguration<RoleEntity>

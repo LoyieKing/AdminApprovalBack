@@ -32,7 +32,8 @@ namespace AdminApprovalBack.Controllers.SystemManage
         public IActionResult One(int id)
         {
             var datas = repoService.FindOne(id);
-            return Success(datas);
+            if (datas == null) throw new Exception("组织类型不存在！");
+            return Success(new OrganizeCategoryModel().FromEntity(datas));
         }
 
         [HttpPost]

@@ -11,23 +11,17 @@ using System.Threading.Tasks;
 namespace AdminApprovalBack.Controllers.SystemManage
 {
     [Area("SystemManage")]
-    public class RoleController:ControllerBase
+    public class RoleController : ControllerBase
     {
         private readonly RepoService<RoleEntity> repoService;
         private readonly RepoService<OrganizeCategoryEntity> catService;
-        private readonly RepoService<MenuEntity> menuService;
-        private readonly RepoService<RoleMenuEntity> roleMenuService;
 
         public RoleController(
             RepoService<RoleEntity> roleService,
-            RepoService<OrganizeCategoryEntity> catService,
-            RepoService<MenuEntity> menuService,
-            RepoService<RoleMenuEntity> roleMenuService)
+            RepoService<OrganizeCategoryEntity> catService)
         {
             this.repoService = roleService;
             this.catService = catService;
-            this.menuService = menuService;
-            this.roleMenuService = roleMenuService;
         }
 
         [HttpGet]
@@ -45,30 +39,43 @@ namespace AdminApprovalBack.Controllers.SystemManage
             {
                 return Error("组织类型不能为空！");
             }
+
             if (catService.FindOne(cat) == null)
             {
                 return Error("组织类型不存在！");
             }
-            var menus = roleModel.AvailableMenuIds?.Select(it => menuService.FindOne(it)) ?? new List<MenuEntity>();
-            foreach (var menu in menus)
+
+            var menus = roleModel.AvailableMenus?.ToList() ?? new List<string>();
+            var approvals = roleModel.AvailableMenus?.ToList() ?? new List<string>();
+            if (menus.Any(string.IsNullOrWhiteSpace))
             {
-                if (menu == null)
-                {
-                    return Error("菜单类型错误！");
-                }
+                return Error("菜单类型错误！");
             }
-            var roleEntity = new RoleEntity()
+
+            if (approvals.Any(string.IsNullOrWhiteSpace))
+            {
+                return Error("审批类型错误！");
+            }
+
+            var roleEntity = new RoleEntity
             {
                 Id = roleModel.Id,
                 Name = roleModel.Name!,
                 Description = roleModel.Description ?? "",
                 OrganizeCategoryId = roleModel.OrganizeCategoryId,
                 OrganizeDutyLevel = roleModel.OrganizeDutyLevel!.Value,
+                AvailableMenus = "," + string.Join(",", menus) + ",",
+                AvailableApprovals = "," + string.Join(",", approvals) + ","
             };
             repoService.Update(roleEntity);
 
-            roleMenuService.Delete(it => it.Role.Id == roleModel.Id);
-            menus.ForEach(menu => roleMenuService.Update(new RoleMenuEntity { Role = roleEntity, Menu = menu }));
+            return Success();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            repoService.Delete(id);
             return Success();
         }
     }

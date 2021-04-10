@@ -32,6 +32,7 @@ namespace Data.Entity.SystemManage
         public virtual List<UserOrganizeEntity> Users { get; set; } = null!;
 
         public virtual List<ApprovalTableEntity> ApprovalTables { get; set; } = null!;
+        public virtual List<ApprovalTableOrganizeEntity> ApprovalTableOrganizes { get; set; }
     }
 
     class OrganizeMap : EntityTypeConfiguration<OrganizeEntity>
@@ -47,8 +48,7 @@ namespace Data.Entity.SystemManage
                 .HasForeignKey(it => it.ParentId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(it => it.ApprovalTables)
-                .WithOne(it => it.OwnerOrganize)
-                .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+                .WithMany(it => it.OwnerOrganizes);
         }
     }
 }

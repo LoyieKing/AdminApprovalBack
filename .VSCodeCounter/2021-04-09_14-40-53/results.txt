@@ -1,0 +1,152 @@
+Date : 2021-04-09 14:40:53
+Directory : /Users/admin/mysrcs/AdminApprovalBack
+Total : 94 files,  13917 codes, 399 comments, 4569 blanks, all 18885 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |         85 |     13,630 |        399 |      4,530 |     18,559 |
+| XML      |          4 |        125 |          0 |         24 |        149 |
+| Markdown |          2 |        119 |          0 |         13 |        132 |
+| JSON     |          3 |         43 |          0 |          2 |         45 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                               |         94 |     13,917 |        399 |      4,569 |     18,885 |
+| App                                                                                                             |         32 |      1,512 |         19 |        185 |      1,716 |
+| App/.VSCodeCounter                                                                                              |          2 |        119 |          0 |         13 |        132 |
+| App/.VSCodeCounter/2021-04-09_14-38-32                                                                          |          2 |        119 |          0 |         13 |        132 |
+| App/Controllers                                                                                                 |         14 |        912 |          4 |        115 |      1,031 |
+| App/Controllers/Approval                                                                                        |          2 |        141 |          4 |         17 |        162 |
+| App/Controllers/Business                                                                                        |          3 |        166 |          0 |         17 |        183 |
+| App/Controllers/SystemManage                                                                                    |          4 |        310 |          0 |         43 |        353 |
+| App/Controllers/SystemSecurity                                                                                  |          3 |        158 |          0 |         19 |        177 |
+| App/Interceptors                                                                                                |          1 |         27 |          0 |          2 |         29 |
+| App/Middleware                                                                                                  |          1 |         50 |          1 |          6 |         57 |
+| App/Models                                                                                                      |          8 |        204 |          8 |         23 |        235 |
+| App/Properties                                                                                                  |          1 |         28 |          0 |          0 |         28 |
+| Common                                                                                                          |         10 |        847 |        320 |        184 |      1,351 |
+| Common/Cache                                                                                                    |          3 |         84 |          0 |         11 |         95 |
+| Common/Encrypt                                                                                                  |          2 |         90 |         34 |         17 |        141 |
+| Common/IO                                                                                                       |          1 |        474 |        223 |        136 |        833 |
+| Common/Query                                                                                                    |          2 |         67 |         21 |          5 |         93 |
+| Data                                                                                                            |         43 |     11,005 |         54 |      4,125 |     15,184 |
+| Data/Entity                                                                                                     |         13 |        299 |         33 |         55 |        387 |
+| Data/Entity/Approval                                                                                            |          4 |         96 |          0 |         10 |        106 |
+| Data/Entity/Business                                                                                            |          2 |         45 |          0 |          8 |         53 |
+| Data/Entity/SystemManage                                                                                        |          5 |        127 |         15 |         25 |        167 |
+| Data/Entity/SystemSecurity                                                                                      |          2 |         31 |         18 |         12 |         61 |
+| Data/Infrastructure                                                                                             |          4 |         83 |          6 |         12 |        101 |
+| Data/Migrations                                                                                                 |         21 |     10,450 |         11 |      4,027 |     14,488 |
+| Data/RepositoryBase                                                                                             |          2 |        106 |          4 |         16 |        126 |
+| Service                                                                                                         |          9 |        553 |          6 |         75 |        634 |
+| Service/App                                                                                                     |          4 |        356 |          0 |         45 |        401 |
+| Service/App/SystemManage                                                                                        |          1 |         95 |          0 |         19 |        114 |
+| Service/App/SystemSecurity                                                                                      |          2 |        183 |          0 |         15 |        198 |
+| Service/Login                                                                                                   |          2 |         73 |          6 |         10 |         89 |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                        | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/admin/mysrcs/AdminApprovalBack/App/.VSCodeCounter/2021-04-09_14-38-32/details.md                         | Markdown |         82 |          0 |          6 |         88 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/.VSCodeCounter/2021-04-09_14-38-32/results.md                         | Markdown |         37 |          0 |          7 |         44 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/App.csproj                                                            | XML      |         56 |          0 |          8 |         64 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/Approval/ApprovalTableController.cs                       | C#       |         83 |          0 |          9 |         92 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/Approval/InfoClassController.cs                           | C#       |         58 |          4 |          8 |         70 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/Business/ApprovalInstanceController.cs                    | C#       |         72 |          0 |          6 |         78 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/Business/ImageController.cs                               | C#       |         38 |          0 |          4 |         42 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/Business/InfoInstanceController.cs                        | C#       |         56 |          0 |          7 |         63 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/ControllerBase.cs                                         | C#       |         56 |          0 |          9 |         65 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/LoginController.cs                                        | C#       |         81 |          0 |         10 |         91 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/SystemManage/OrganizeCatController.cs                     | C#       |         62 |          0 |          9 |         71 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/SystemManage/OrganizeController.cs                        | C#       |         65 |          0 |          9 |         74 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/SystemManage/RoleController.cs                            | C#       |         73 |          0 |         10 |         83 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/SystemManage/UserController.cs                            | C#       |        110 |          0 |         15 |        125 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/SystemSecurity/DbBackupController.cs                      | C#       |         49 |          0 |          4 |         53 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/SystemSecurity/InitController.cs                          | C#       |         74 |          0 |         11 |         85 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Controllers/SystemSecurity/LogController.cs                           | C#       |         35 |          0 |          4 |         39 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Interceptors/HandlerAuthorizeAttribute.cs                             | C#       |         27 |          0 |          2 |         29 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Middleware/LoginMiddleware.cs                                         | C#       |         50 |          1 |          6 |         57 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/ApprovalTableModel.cs                                          | C#       |         22 |          0 |          3 |         25 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/IModel.cs                                                      | C#       |         57 |          2 |          6 |         65 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/InfoClassModel.cs                                              | C#       |         17 |          0 |          1 |         18 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/InfoInstanceModel.cs                                           | C#       |         30 |          0 |          4 |         34 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/OrganizeCategoryModel.cs                                       | C#       |         14 |          0 |          1 |         15 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/OrganizeModel.cs                                               | C#       |         21 |          0 |          2 |         23 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/RoleModel.cs                                                   | C#       |         25 |          0 |          2 |         27 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Models/UserModel.cs                                                   | C#       |         18 |          6 |          4 |         28 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Program.cs                                                            | C#       |         23 |          0 |          2 |         25 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Properties/launchSettings.json                                        | JSON     |         28 |          0 |          0 |         28 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/Startup.cs                                                            | C#       |         78 |          6 |         14 |         98 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/appsettings.Development.json                                          | JSON     |          7 |          0 |          1 |          8 |
+| /Users/admin/mysrcs/AdminApprovalBack/App/appsettings.json                                                      | JSON     |          8 |          0 |          1 |          9 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Cache/Cache.cs                                                     | C#       |         41 |          0 |          6 |         47 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Cache/CacheFactory.cs                                              | C#       |         27 |          0 |          3 |         30 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Cache/ICache.cs                                                    | C#       |         16 |          0 |          2 |         18 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Common.csproj                                                      | XML      |         32 |          0 |          6 |         38 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Encrypt/DesEncrypt.cs                                              | C#       |         58 |         25 |         11 |         94 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Encrypt/Md5.cs                                                     | C#       |         32 |          9 |          6 |         47 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/IO/FileHelper.cs                                                   | C#       |        474 |        223 |        136 |        833 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Query/Pagination.cs                                                | C#       |         25 |         21 |          1 |         47 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Query/PaginationExtension.cs                                       | C#       |         42 |          0 |          4 |         46 |
+| /Users/admin/mysrcs/AdminApprovalBack/Common/Utils.cs                                                           | C#       |        100 |         42 |          9 |        151 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/AabDbContext.cs                                                      | C#       |         17 |          0 |          4 |         21 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Data.csproj                                                          | XML      |         22 |          0 |          5 |         27 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/DataServiceConfigExtension.cs                                        | C#       |         28 |          0 |          6 |         34 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/Approval/ApprovalTableEntity.cs                               | C#       |         49 |          0 |          3 |         52 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/Approval/ApprovalTableInfoClassEntity.cs                      | C#       |         12 |          0 |          2 |         14 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/Approval/ApprovalTableOrganizeEntity.cs                       | C#       |         13 |          0 |          2 |         15 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/Approval/InfoClassEntity.cs                                   | C#       |         22 |          0 |          3 |         25 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/Business/ApprovalInstanceEntity.cs                            | C#       |         18 |          0 |          5 |         23 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/Business/InfoInstanceEntity.cs                                | C#       |         27 |          0 |          3 |         30 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/SystemManage/OrganizeCategoryEntity.cs                        | C#       |         20 |          0 |          4 |         24 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/SystemManage/OrganizeEntity.cs                                | C#       |         37 |          9 |          8 |         54 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/SystemManage/RoleEntity.cs                                    | C#       |         28 |          0 |          3 |         31 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/SystemManage/UserEntity.cs                                    | C#       |         22 |          6 |          7 |         35 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/SystemManage/UserOrganizeEntity.cs                            | C#       |         20 |          0 |          3 |         23 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/SystemSecurity/DbBackupEntity.cs                              | C#       |         16 |          0 |          2 |         18 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Entity/SystemSecurity/LogEntity.cs                                   | C#       |         15 |         18 |         10 |         43 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Infrastructure/DbLogType.cs                                          | C#       |         30 |          0 |          2 |         32 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Infrastructure/EntityTypeConfiguration.cs                            | C#       |         15 |          0 |          3 |         18 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Infrastructure/IEntity.cs                                            | C#       |         25 |          6 |          5 |         36 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Infrastructure/ITreeEntity.cs                                        | C#       |         13 |          0 |          2 |         15 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210404133820_InitialCreate.Designer.cs                  | C#       |        887 |          1 |        396 |      1,284 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210404133820_InitialCreate.cs                           | C#       |        984 |          0 |         93 |      1,077 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210404135103_Avatar.Designer.cs                         | C#       |        886 |          1 |        396 |      1,283 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210404135103_Avatar.cs                                  | C#       |         29 |          0 |          3 |         32 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210406155510_OptionalParentId.Designer.cs               | C#       |        887 |          1 |        396 |      1,284 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210406155510_OptionalParentId.cs                        | C#       |         33 |          0 |          5 |         38 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210407042839_ModifyRoleMenuTable.Designer.cs            | C#       |        765 |          1 |        340 |      1,106 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210407042839_ModifyRoleMenuTable.cs                     | C#       |        161 |          0 |         16 |        177 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210407052320_AddAvailableApprovals.Designer.cs          | C#       |        768 |          1 |        341 |      1,110 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210407052320_AddAvailableApprovals.cs                   | C#       |         21 |          0 |          3 |         24 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210407160417_InfoClassReusable.Designer.cs              | C#       |        770 |          1 |        342 |      1,113 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210407160417_InfoClassReusable.cs                       | C#       |         22 |          0 |          3 |         25 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408052356_UpdateInfoClass.Designer.cs                | C#       |        773 |          1 |        343 |      1,117 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408052356_UpdateInfoClass.cs                         | C#       |         29 |          0 |          5 |         34 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408120307_UpdateApprovalTable.Designer.cs            | C#       |        684 |          1 |        298 |        983 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408120307_UpdateApprovalTable.cs                     | C#       |        228 |          0 |         29 |        257 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408134433_UpdateInfoClasses.Designer.cs              | C#       |        697 |          1 |        301 |        999 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408134433_UpdateInfoClasses.cs                       | C#       |         67 |          0 |         10 |         77 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408142949_UpdateApprovalTableMulti2Multi.Designer.cs | C#       |        773 |          1 |        343 |      1,117 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/20210408142949_UpdateApprovalTableMulti2Multi.cs          | C#       |        215 |          0 |         21 |        236 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/Migrations/AabDbContextModelSnapshot.cs                              | C#       |        771 |          1 |        343 |      1,115 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/RepositoryBase/IRepository.cs                                        | C#       |         26 |          0 |          2 |         28 |
+| /Users/admin/mysrcs/AdminApprovalBack/Data/RepositoryBase/Repository.cs                                         | C#       |         80 |          4 |         14 |         98 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/App/RepoService.cs                                                | C#       |         78 |          0 |         11 |         89 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/App/SystemManage/UserService.cs                                   | C#       |         95 |          0 |         19 |        114 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/App/SystemSecurity/DbBackupService.cs                             | C#       |         94 |          0 |         11 |        105 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/App/SystemSecurity/LogService.cs                                  | C#       |         89 |          0 |          4 |         93 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/Login/LoginExtension.cs                                           | C#       |         56 |          0 |          6 |         62 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/Login/UserInformation.cs                                          | C#       |         17 |          6 |          4 |         27 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/Service.csproj                                                    | XML      |         15 |          0 |          5 |         20 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/ServiceConfigExtension.cs                                         | C#       |         26 |          0 |          5 |         31 |
+| /Users/admin/mysrcs/AdminApprovalBack/Service/VerifyCodeService.cs                                              | C#       |         83 |          0 |         10 |         93 |
+| Total                                                                                                           |          |     13,917 |        399 |      4,569 |     18,885 |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

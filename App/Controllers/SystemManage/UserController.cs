@@ -8,6 +8,7 @@ using Service.Login;
 using System.Collections.Generic;
 using System.Linq;
 using AdminApprovalBack.Models;
+using Service;
 
 
 namespace AdminApprovalBack.Controllers.SystemManage
@@ -41,7 +42,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         public IActionResult One(int id)
         {
             var data = userService.FindOne(id);
-            return Success(data);
+            return Success(new UserModel().FromEntity(data));
         }
 
         [HttpPost]

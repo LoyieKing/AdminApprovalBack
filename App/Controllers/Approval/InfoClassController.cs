@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace AdminApprovalBack.Controllers.Approval
 {
-
     /// <summary>
     /// 单个信息
     /// 如身份证件信息、电话号码等
@@ -27,42 +26,44 @@ namespace AdminApprovalBack.Controllers.Approval
         [HttpGet]
         public IActionResult Index()
         {
-            var data = repoService.IQueryable().Select(it => new InfoClassModel
-            {
-                Id = it.Id,
-                Name = it.Name,
-                Category = it.Category,
-                ExpiredMinutes = it.ExpiredMinutes
-            });
+            var data = repoService.IQueryable().Select(it => new InfoClassModel().FromEntity(it));
             return Success(data);
         }
 
+        [HttpPost]
         public IActionResult Update([FromBody] List<InfoClassModel> infoItems)
         {
+            using var trans = repoService.DbContext.Database.BeginTransaction();
             infoItems.Select(it =>
             {
                 var name = it.Name;
                 var cat = it.Category;
                 var type = it.InputType;
-                if (it.Id == 0 && string.IsNullOrWhiteSpace(name))
+                if (string.IsNullOrWhiteSpace(name))
                 {
                     throw new Exception("名字不能为空");
                 }
-                if (it.Id == 0 && string.IsNullOrWhiteSpace(cat))
+
+                if (string.IsNullOrWhiteSpace(cat))
                 {
                     throw new Exception("分类不能为空");
                 }
-                if (it.Id == 0 && string.IsNullOrWhiteSpace(type))
+
+                if (string.IsNullOrWhiteSpace(type))
                 {
                     throw new Exception("信息类型不能为空");
                 }
-                return new InfoClassEntity
-                {
-                    Id = it.Id,
-                    Name = name,
-                    Category = cat
-                };
+
+                return it.ToEntity();
             }).ForEach(it => repoService.Update(it));
+            trans.Commit();
+            return Success();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            repoService.Delete(id);
             return Success();
         }
     }

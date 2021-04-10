@@ -11,48 +11,15 @@ namespace AdminApprovalBack.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
-        public List<InfoRowGroupModel> InfoRowGroups { get; set; }
+        public List<int>? InfoClasses { get; set; }
+        public List<int>? OwnerOrganizes { get; set; }
 
         protected override void OnFromEntity(ApprovalTableEntity entity)
         {
             base.OnFromEntity(entity);
-            InfoRowGroups = entity.InfoGroups.Select(it => new InfoRowGroupModel
-            {
-                Name = it.Name,
-                Rows = it.Items.Select(it =>
-                new NamedInfoItemModel
-                {
-                    Name = it.Name,
-                    InfoItem = new InfoClassModel().FromEntity(it.Item)
-                }).ToList()
-            }).ToList();
+            InfoClasses = entity.InfoClasses.Select(it => it.Id).ToList();
+            OwnerOrganizes = entity.OwnerOrganizes.Select(it => it.Id).ToList();
         }
-
-        public override ApprovalTableEntity ToEntity()
-        {
-            var result = base.ToEntity();
-            result.InfoGroups = InfoRowGroups?.Select(it =>
-            {
-                var group = new InfoGroupEntity
-                {
-                    Name = it.Name
-                };
-                group.Items = it.Rows.Select(row => new InfoGroupItemEntity { Name = row.Name, Group = group, Item = row.InfoItem.ToEntity() }).ToList();
-                return group;
-            }).ToList() ?? new List<InfoGroupEntity>();
-            return result;
-        }
-    }
-
-    public class InfoRowGroupModel
-    {
-        public string Name { get; set; }
-        public List<NamedInfoItemModel> Rows { get; set; }
-    }
-
-    public class NamedInfoItemModel
-    {
-        public string Name { get; set; }
-        public InfoClassModel InfoItem { get; set; }
+        
     }
 }

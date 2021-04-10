@@ -17,7 +17,7 @@ namespace Data.RepositoryBase
         int Update(TEntity entity);
         int Delete(TEntity entity);
         int Delete(Expression<Func<TEntity, bool>> predicate);
-        TEntity FindEntity(int id);
+        TEntity? FindEntity(int id);
         TEntity? FindEntity(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> IQueryable();
         IQueryable<TEntity> IQueryable(Expression<Func<TEntity, bool>> predicate);

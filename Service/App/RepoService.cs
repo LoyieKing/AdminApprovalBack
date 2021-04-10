@@ -30,7 +30,7 @@ namespace Service
         {
             return repo.IQueryable();
         }
-        public virtual TEnitity FindOne(int id)
+        public virtual TEnitity? FindOne(int id)
         {
             return repo.FindEntity(id);
         }

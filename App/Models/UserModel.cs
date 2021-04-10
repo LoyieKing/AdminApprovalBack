@@ -6,6 +6,7 @@ namespace AdminApprovalBack.Models
 {
     public class UserModel : IModel<UserModel, UserEntity>
     {
+        public int Id { get; set; }
         public string UserName { get; set; } = null!;
         public string RealName { get; set; } = null!;
         public string? Avatar { get; set; } = null!;

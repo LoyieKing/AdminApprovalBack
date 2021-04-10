@@ -9,7 +9,7 @@ namespace Data.Entity.Business
     {
         public virtual UserEntity User { get; set; }
         public virtual ApprovalTableEntity AppprovalTable { get; set; }
-        public virtual List<InfoInstanceEntity> InfoInstances { get; set; }
+        public string InfoInstances { get; set; }
         public string Description { get; set; }
         public string State { get; set; }
 

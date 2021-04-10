@@ -8,17 +8,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.Entity.Approval;
 
 namespace AdminApprovalBack.Controllers.Business
 {
     public class InfoInstanceController : ControllerBase
     {
         private readonly RepoService<InfoInstanceEntity> repoService;
+        private readonly RepoService<InfoClassEntity> infoClassService;
         private readonly UserService userService;
 
-        public InfoInstanceController(RepoService<InfoInstanceEntity> repoService,UserService userService)
+        public InfoInstanceController(
+            RepoService<InfoInstanceEntity> repoService,
+            RepoService<InfoClassEntity> infoClassService,
+            UserService userService)
         {
             this.repoService = repoService;
+            this.infoClassService = infoClassService;
             this.userService = userService;
         }
 
@@ -26,7 +32,15 @@ namespace AdminApprovalBack.Controllers.Business
         public IActionResult Index()
         {
             var user = GetUserInformation();
-            var data = repoService.IQueryable().Where(it => it.User.Id == user.Id).Select(it => new InfoInstanceModel().FromEntity(it));
+            var data = repoService
+                .IQueryable()
+                .Where(it => it.User.Id == user.Id)
+                .ToList().Select(it =>
+                {
+                    var model = new InfoInstanceModel().FromEntity(it);
+                    model.InfoClass = new InfoClassModel().FromEntity(infoClassService.FindOne(it.PrototypeId)!);
+                    return model;
+                });
             return Success(data);
         }
 
@@ -53,6 +67,7 @@ namespace AdminApprovalBack.Controllers.Business
             {
                 authorized |= ins.User.Id == user.Id;
             }
+
             if (!authorized) throw new Exception("权限不足！");
             ins.Status = state;
             repoService.Update(ins);

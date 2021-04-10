@@ -18,10 +18,15 @@ namespace Service.Login
         private static readonly string secret = "wAngy1lei0Nradu2a4!clkSLKasdlzkc";
         private static readonly byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
 
-        private static JsonSerializerSettings ssonSerializerSettings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
-        private static JsonNetSerializer jsonNetSerializer = new JsonNetSerializer(JsonSerializer.Create(ssonSerializerSettings));
+        private static JsonSerializerSettings ssonSerializerSettings = new JsonSerializerSettings
+            {ContractResolver = new CamelCasePropertyNamesContractResolver()};
 
-        private static readonly JwtEncoder jwtEncoder = new JwtEncoder(new HMACSHA256Algorithm(), jsonNetSerializer, new JwtBase64UrlEncoder());
+        private static JsonNetSerializer jsonNetSerializer =
+            new JsonNetSerializer(JsonSerializer.Create(ssonSerializerSettings));
+
+        private static readonly JwtEncoder jwtEncoder =
+            new JwtEncoder(new HMACSHA256Algorithm(), jsonNetSerializer, new JwtBase64UrlEncoder());
+
         private static readonly JwtDecoder jwtDecoder = new JwtDecoder(jsonNetSerializer, new JwtBase64UrlEncoder());
 
         public static UserInformation? GetUserInformation(this HttpContext context)
@@ -30,10 +35,12 @@ namespace Service.Login
             {
                 return tmp as UserInformation;
             }
+
             if (!context.Request.Headers.TryGetValue("Authorization", out var value))
             {
                 return null;
             }
+
             var token = value.Where(it => it.StartsWith("Bear ")).FirstOrDefault();
             if (token == null) return null;
             try
@@ -47,13 +54,14 @@ namespace Service.Login
             }
         }
 
-        public static string CreateJwtToken(UserEntity userEntity)
+        public static string CreateJwtToken(UserEntity userEntity, string[] permissions)
         {
             var information = new UserInformation
             {
                 Id = userEntity.Id,
                 UserName = userEntity.UserName,
-                LoginTime = DateTime.Now
+                LoginTime = DateTime.Now,
+                Permissions = permissions
             };
             return jwtEncoder.Encode(information, secretBytes);
         }

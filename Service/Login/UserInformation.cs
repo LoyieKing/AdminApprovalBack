@@ -22,5 +22,7 @@ namespace Service.Login
 
         [JsonIgnore]
         public bool IsAdmin { get => UserName == "admin"; }
+
+        public string[] Permissions { get; set; }
     }
 }

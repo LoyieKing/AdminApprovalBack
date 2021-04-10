@@ -20,13 +20,12 @@ namespace AdminApprovalBack.Models
         protected override void OnFromEntity(InfoInstanceEntity entity)
         {
             base.OnFromEntity(entity);
-            InfoClass = new InfoClassModel().FromEntity(entity.InfoClass);
         }
 
         public override InfoInstanceEntity ToEntity()
         {
             var entity = base.ToEntity();
-            entity.InfoClass = InfoClass.ToEntity();
+            entity.PrototypeId = InfoClass.Id;
             return entity;
         }
     }

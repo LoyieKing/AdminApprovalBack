@@ -38,13 +38,16 @@ namespace Data.RepositoryBase
             foreach (PropertyInfo prop in props)
             {
                 if (prop.Name == "Id") continue;
+                if (prop.Name == "LazyLoader") continue;
                 var value = prop.GetValue(entity, null);
                 if (value == null) continue;
+
                 var member = DbContext.Entry(entity).Member(prop.Name);
-                if (member is PropertyEntry propertyEntry)
-                {
-                    propertyEntry.IsModified = true;
-                }
+                member.IsModified = true;
+                // if (member is PropertyEntry propertyEntry)
+                // {
+                //     propertyEntry.IsModified = true;
+                // }
             }
 
             return DbContext.SaveChanges();

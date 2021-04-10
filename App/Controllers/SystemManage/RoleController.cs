@@ -27,7 +27,8 @@ namespace AdminApprovalBack.Controllers.SystemManage
         [HttpGet]
         public IActionResult Index()
         {
-            var data = repoService.IQueryable().Select(it => new RoleModel().FromEntity(it));
+            var entities = repoService.IQueryable().ToList();
+            var data = entities.Select(it => new RoleModel().FromEntity(it)).ToList();
             return Success(data);
         }
 
@@ -46,7 +47,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
             }
 
             var menus = roleModel.AvailableMenus?.ToList() ?? new List<string>();
-            var approvals = roleModel.AvailableMenus?.ToList() ?? new List<string>();
+            var approvals = roleModel.AvailableApprovals?.ToList() ?? new List<string>();
             if (menus.Any(string.IsNullOrWhiteSpace))
             {
                 return Error("菜单类型错误！");

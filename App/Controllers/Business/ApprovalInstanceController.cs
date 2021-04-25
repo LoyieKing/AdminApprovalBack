@@ -36,7 +36,7 @@ namespace AdminApprovalBack.Controllers.Business
         private List<ApprovalInstanceEntity> findAll(Expression<Func<ApprovalInstanceEntity, bool>>? predict = null)
         {
             var user = GetUserInformation();
-            var data = repoService.IQueryable().Where(it => it.User.Id == user.Id || it.CreatorUserId == user.Id);
+            var data = repoService.IQueryable();
             if (predict != null)
             {
                 data = data.Where(predict);
@@ -56,7 +56,7 @@ namespace AdminApprovalBack.Controllers.Business
                 prototype = it.AppprovalTable.Name,
                 values = infoInstances.Select(info =>
                 {
-                    var infoClass = infoClassService.FindOne(info.Id)!;
+                    var infoClass = infoClassService.FindOne(info.PrototypeId)!;
                     return new
                     {
                         id = info.Id,

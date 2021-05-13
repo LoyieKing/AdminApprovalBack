@@ -46,7 +46,8 @@ namespace AdminApprovalBack.Services
         public (string token, byte[] image) GenerateCode()
         {
             var code = Utils.RndEnNum(4);
-            var image = securityCodeHelper.GetEnDigitalCodeByte(code);
+            
+            var image = securityCodeHelper.GetEnDigitalCodeByte("0.1 + 0.2 = ?");
             var token = jwtEncoder.Encode(new Payload { Code = DesEncrypt.Encrypt(code, secret), ExpiredAt = (long)UnixEpoch.GetSecondsSince(timeProvider.GetNow().AddMinutes(10)) }, secretBytes);
             return (token, image);
         }

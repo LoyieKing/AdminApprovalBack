@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdminApprovalBack.Services.SystemManage;
 
 namespace AdminApprovalBack.Controllers.SystemSecurity
 {
@@ -19,12 +20,14 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
         private readonly RepoService<OrganizeEntity> organizeService;
         private readonly RepoService<UserEntity> userService;
         private readonly RepoService<UserOrganizeEntity> userOrganizeService;
+        private readonly UserService userService2;
 
         public InitController(IWebHostEnvironment webHostEnvironment,
             RepoService<OrganizeCategoryEntity> organizeCatService,
             RepoService<OrganizeEntity> organizeService,
             RepoService<UserEntity> userService,
-            RepoService<UserOrganizeEntity> userOrganizeService)
+            RepoService<UserOrganizeEntity> userOrganizeService,
+            UserService userService2)
         {
             if (!webHostEnvironment.IsDevelopment())
             {
@@ -37,6 +40,7 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
             this.organizeService = organizeService;
             this.userService = userService;
             this.userOrganizeService = userOrganizeService;
+            this.userService2 = userService2;
         }
 
         [HttpGet]
@@ -78,6 +82,21 @@ namespace AdminApprovalBack.Controllers.SystemSecurity
 
             trans.Commit();
 
+            return Success();
+        }
+
+
+        [HttpGet]
+        public IActionResult ChangePasswordSuper(string username, string pwd)
+        {
+            UserEntity? userEntity = userService.IQueryable().FirstOrDefault(t => t.UserName == username);
+            if (userEntity == null)
+            {
+                throw new Exception("账户不存在，请重新输入");
+            }
+
+            userEntity.Password = userService2.HashPassword(pwd);
+            userService.Update(userEntity);
             return Success();
         }
     }

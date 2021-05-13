@@ -94,6 +94,18 @@ namespace AdminApprovalBack.Services.SystemManage
             userEntity.Password = HashPassword(newpwd);
             service.Update(userEntity);
         }
+        
+        public void RevisePasswordSuper(int id, string pwd)
+        {
+            UserEntity userEntity = service.FindOne(id);
+            if (userEntity == null)
+            {
+                throw new Exception("账户不存在，请重新输入");
+            }
+
+            userEntity.Password = HashPassword(pwd);
+            service.Update(userEntity);
+        }
 
         public bool IsHigherLevel(int userId, int higherUserId)
         {

@@ -40,6 +40,7 @@ namespace AdminApprovalBack.Controllers.SystemManage
         {
             UserOrganizeEntity entity = new()
             {
+                Id = userOrganizeModel.Id,
                 User = userService.FindOne(userOrganizeModel.UserId),
                 Organize = organizeService.FindOne(userOrganizeModel.OrganizeId),
                 DutyLevel = userOrganizeModel.DutyLevel
